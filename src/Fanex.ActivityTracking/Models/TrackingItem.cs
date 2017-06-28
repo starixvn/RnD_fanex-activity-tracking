@@ -1,0 +1,29 @@
+﻿namespace Fanex.ActivityTracking.Models
+{
+    using System.Linq;
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+
+    [DataContract]
+    public class TrackingItem
+    {
+        public readonly static TrackingItem MiddleLevelTrackingItem = new TrackingItem { Level = TrackingLevel.Middle };
+
+        public TrackingItem()
+        {
+            Urls = Enumerable.Empty<string>();
+        }
+
+        [DataMember(Name = "function", IsRequired = false)]
+        public string Function { get; set; }
+
+        [DataMember(Name = "action", IsRequired = false)]
+        public string Action { get; set; }
+
+        [DataMember(Name = "urls", IsRequired = false)]
+        public IEnumerable<string> Urls { get; set; }
+
+        [DataMember(Name = "level", IsRequired = false)]
+        public TrackingLevel Level { get; set; }
+    }
+}
