@@ -13,8 +13,15 @@
         public TrackingActivityService()
         {
             InitializeComponent();
-            AppSettings.Init(Path.Combine(Environment.CurrentDirectory, AppSettings.ActivityTrackingConfigFilePath));
-            messageQueueService = new MessageQueueServiceImpl();
+            try
+            {
+                AppSettings.Init(Path.Combine(Environment.CurrentDirectory, AppSettings.ActivityTrackingConfigFilePath));
+                messageQueueService = new MessageQueueServiceImpl();
+            }
+            catch(Exception ex)
+            {
+                Logging.LogService.Error(ex.Message, ex);
+            }
         }
 
         protected override void OnStart(string[] args)

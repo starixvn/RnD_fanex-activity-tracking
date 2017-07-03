@@ -32,7 +32,7 @@
             }
             else
             {
-                throw new FileNotFoundException("Cannot find activity tracking json file");
+                throw new FileNotFoundException($"Cannot find activity tracking json file: {configFilePath}");
             }
         }
 
