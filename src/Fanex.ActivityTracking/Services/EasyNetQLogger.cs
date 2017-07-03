@@ -12,15 +12,11 @@
             // Do Nothing
         }
 
-        public void ErrorWrite(Exception exception)
-        {
-            LogService.Error(exception.Message, AppSettings.LogCategory, exception);
-        }
+        public void ErrorWrite(Exception exception) 
+            => LogService.Error(exception.Message, AppSettings.LogCategory, exception);
 
         public void ErrorWrite(string format, params object[] args)
-        {
-            LogService.Error(string.Format(format, args), AppSettings.LogCategory);
-        }
+            => LogService.Error(string.Format(format, args), AppSettings.LogCategory);
 
         public void InfoWrite(string format, params object[] args)
         {

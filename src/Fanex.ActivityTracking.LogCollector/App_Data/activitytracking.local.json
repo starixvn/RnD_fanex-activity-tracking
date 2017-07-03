@@ -1,0 +1,35 @@
+{
+  "rabbitMQConnectionString": "host=10.35.35.253,10.35.35.254;virtualHost=/ActivityTracking;username=activity_tracking;password=1234bb",
+  "enabledTrackAllRequests": false,
+  "trackingItems": [
+    {
+      "level": "2",
+      "action": "Search Account",
+      "urls": [ "CustInfo.aspx" ]
+    },
+    {
+      "level": "2",
+      "action": "View Statement",
+      "urls": [
+        "Statement/CustomerStatement.aspx"
+      ]
+    },
+    {
+      "level": "2",
+      "action": "View Bet List",
+      "urls": [
+        "BetList/BetList.aspx;BetList/CombinationMPDetail.aspx",
+        "BetList/BetListSystemparlay.aspx;BetList/GetBetListByProduct",
+        "TarusBetList/GetBetListByCustInfo_DateRange",
+        "BetList/GetBetListStatement",
+        "TarusBetList/BetListByCustInfo",
+        "BetList/GetBetListByCustInfo_SystemParLayTab"
+      ]
+    },
+    {
+      "level": "2",
+      "action": "Customer Setting",
+      "function": "[Customer]"
+    }
+  ]
+}

@@ -93,9 +93,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AppSettings.cs" />
-    <Compile Include="Helpers\EasyNetQLogger.cs" />
+    <Compile Include="FunctionManager.cs" />
     <Compile Include="Helpers\ElasticsearchClient.cs" />
-    <Compile Include="Helpers\RabbitMqClient.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="App_Data\activitytracking.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App_Data\activitytracking.local.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Fanex.ActivityTracking.LogCollector.local.config">
       <DependentUpon>App.config</DependentUpon>
     </None>

@@ -1,7 +1,9 @@
 ﻿namespace Fanex.ActivityTracking.LogCollector
 {
     using System;
+    using System.IO;
     using System.ServiceProcess;
+    using ActivityTracking.Configurations;
     using Fanex.ActivityTracking.LogCollector.Services;
 
     partial class TrackingActivityService : ServiceBase
@@ -11,6 +13,7 @@
         public TrackingActivityService()
         {
             InitializeComponent();
+            AppSettings.Init(Path.Combine(Environment.CurrentDirectory, AppSettings.ActivityTrackingConfigFilePath));
             messageQueueService = new MessageQueueServiceImpl();
         }
 

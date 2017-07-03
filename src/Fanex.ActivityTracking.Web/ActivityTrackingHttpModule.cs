@@ -15,15 +15,20 @@
         private readonly IUserSession userSession;
         private readonly IRequestAnalyzer requestAnalyzer;
         private readonly IPService ipService;
+        private readonly TrackingService trackingService;
 
         public ActivityTrackingHttpModule(
+            Action initConfig,
             IUserSession userSession,
             IRequestAnalyzer requestAnalyzer,
+            TrackingService trackingService = null,
             IActivityLogger logger = null,
             IPService ipService = null)
         {
+            initConfig();
             this.userSession = userSession;
             this.requestAnalyzer = requestAnalyzer;
+            this.trackingService = trackingService ?? new TrackingServiceImpl(AppSettings.ActivityTrackingConfig.EnabledTrackingAllRequests);
             this.logger = logger ?? new ActivityLogger();
             this.ipService = ipService ?? new IPServiceImpl();
         }
@@ -64,7 +69,7 @@
             {
 
                 var request = HttpContext.Current.Request;
-                var trackingItem = requestAnalyzer.GetTrackingItem(
+                var trackingItem = trackingService.GetTrackingItem(
                     request.Url.AbsolutePath,
                     AppSettings.ActivityTrackingConfig.TrackingItems);
 
@@ -93,7 +98,7 @@
                     logger.Write(activity);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogService.Error(ex.Message, AppSettings.LogCategory, ex);
             }

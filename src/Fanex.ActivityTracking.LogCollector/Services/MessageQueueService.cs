@@ -1,9 +1,9 @@
 ﻿namespace Fanex.ActivityTracking.LogCollector.Services
 {
     using System;
+    using ActivityTracking.Helpers;
     using ActivityTracking.Models;
     using EasyNetQ;
-    using Helpers;
     using Logging;
 
     public interface MessageQueueService
@@ -40,7 +40,7 @@
                 {
                     activityLogService.InsertActivity(activity);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     logger.Error(ex.Message, ex);
                 }

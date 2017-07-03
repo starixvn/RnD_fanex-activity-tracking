@@ -1,4 +1,4 @@
-﻿namespace Fanex.ActivityTracking.Services
+﻿namespace Fanex.ActivityTracking.Web
 {
     using System;
     using System.Linq;

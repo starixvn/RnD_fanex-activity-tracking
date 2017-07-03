@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public static class AppSettings
     {
@@ -19,8 +17,6 @@
 
             ElasticsearchIndex = ConfigurationManager.AppSettings["ElasticsearchIndex"] ?? "tracking_activity";
 
-            RabbitMQConnectionString = ConfigurationManager.AppSettings["RabbitMQConnectionString"];
-
             ElasticsearchAuthInfo = ConfigurationManager.AppSettings["ElasticsearchAuthInfo"] ?? "admin:admin";
         }
 
@@ -29,8 +25,6 @@
         public static bool IsSSL { get; internal set; }
 
         public static string ElasticsearchIndex { get; internal set; }
-
-        public static string RabbitMQConnectionString { get; internal set; }
 
         public static string ElasticsearchAuthInfo { get; internal set; }
     }

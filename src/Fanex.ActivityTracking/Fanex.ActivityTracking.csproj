@@ -93,7 +93,6 @@
       <HintPath>..\..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -103,6 +102,8 @@
   <ItemGroup>
     <Compile Include="Configurations\ActivityTrackingConfig.cs" />
     <Compile Include="Configurations\AppSettings.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\RabbitMqClient.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\RequestInfo.cs" />
@@ -112,10 +113,8 @@
     <Compile Include="Services\ActivityLogger.cs" />
     <Compile Include="Models\IUserSession.cs" />
     <Compile Include="Services\EasyNetQLogger.cs" />
-    <Compile Include="Services\IPService.cs" />
     <Compile Include="Services\JsonConverter.cs" />
-    <Compile Include="Services\RequestAnalyzer.cs" />
-    <Compile Include="Web\ActivityTrackingHttpModule.cs" />
+    <Compile Include="Services\TrackingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

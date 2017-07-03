@@ -1,7 +1,7 @@
 ﻿namespace Fanex.ActivityTracking.Services
 {
-    using Configurations;
     using EasyNetQ;
+    using Helpers;
     using Models;
 
     public interface IActivityLogger
@@ -15,12 +15,9 @@
 
         public ActivityLogger(IBus bus = null)
         {
-            this.bus = bus ?? AppSettings.Bus;
+            this.bus = bus ?? RabbitMqClient.Bus;
         }
 
-        public void Write(Activity activity)
-        {
-            bus.Publish(activity);
-        }
+        public void Write(Activity activity) => bus.Publish(activity);
     }
 }

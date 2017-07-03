@@ -1,29 +1,24 @@
-﻿namespace Fanex.ActivityTracking.Services
+﻿namespace Fanex.ActivityTracking.Web
 {
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
     using Models;
+    using Services;
 
     public interface IRequestAnalyzer
     {
-        TrackingItem GetTrackingItem(string url, IEnumerable<TrackingItem> trackingItems);
-
         RequestInfo Analyze(HttpRequest request, TrackingLevel level);
     }
 
     public class BaseRequestAnalyzer : IRequestAnalyzer
     {
-        private readonly bool enabledTrackAllRequests;
         private readonly IJsonConverter jsonConverter;
 
-        public BaseRequestAnalyzer(
-            IJsonConverter jsonConverter,
-            bool enabledTrackAllRequests = false)
+        public BaseRequestAnalyzer(IJsonConverter jsonConverter)
         {
             this.jsonConverter = jsonConverter;
-            this.enabledTrackAllRequests = enabledTrackAllRequests;
         }
 
         public RequestInfo Analyze(HttpRequest request, TrackingLevel level)
@@ -81,32 +76,6 @@
             }
 
             return string.Empty;
-        }
-
-        public virtual TrackingItem GetTrackingItem(string url, IEnumerable<TrackingItem> trackingItems)
-        {
-            if (enabledTrackAllRequests)
-            {
-                return TrackingItem.MiddleLevelTrackingItem;
-            }
-
-            if (trackingItems.Any())
-            {
-                var urlToLower = url.ToLowerInvariant();
-                foreach (var item in trackingItems)
-                {
-                    foreach (var itemUrl in item.Urls)
-                    {
-                        if (!string.IsNullOrWhiteSpace(itemUrl) 
-                            && urlToLower.Contains(itemUrl))
-                        {
-                            return item;
-                        }
-                    }
-                }
-            }
-
-            return null;
         }
     }
 }

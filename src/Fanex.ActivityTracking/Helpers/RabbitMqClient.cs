@@ -1,7 +1,8 @@
-﻿namespace Fanex.ActivityTracking.LogCollector.Helpers
+﻿namespace Fanex.ActivityTracking.Helpers
 {
     using Configurations;
     using EasyNetQ;
+    using Services;
 
     public static class RabbitMqClient
     {
@@ -13,7 +14,7 @@
             {
                 if (bus == null)
                 {
-                    bus = RabbitHutch.CreateBus(AppSettings.RabbitMQConnectionString,
+                    bus = RabbitHutch.CreateBus(AppSettings.ActivityTrackingConfig.RabbitMQConnectionString,
                     serviceRegister =>
                     {
                         serviceRegister.Register<IEasyNetQLogger>(_ => new EasyNetQLogger());
