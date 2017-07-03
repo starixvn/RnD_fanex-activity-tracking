@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Reflection;
     using System.ServiceProcess;
     using ActivityTracking.Configurations;
     using Fanex.ActivityTracking.LogCollector.Services;
@@ -15,7 +16,7 @@
             InitializeComponent();
             try
             {
-                AppSettings.Init(Path.Combine(Environment.CurrentDirectory, AppSettings.ActivityTrackingConfigFilePath));
+                AppSettings.Init(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), AppSettings.ActivityTrackingConfigFilePath));
                 messageQueueService = new MessageQueueServiceImpl();
             }
             catch(Exception ex)
