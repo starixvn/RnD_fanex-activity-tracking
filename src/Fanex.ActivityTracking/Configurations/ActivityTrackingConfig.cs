@@ -30,5 +30,8 @@
 
         [DataMember(Name = "site", IsRequired = false)]
         public string Site { get; set; }
+
+        [DataMember(Name = "logCategory", IsRequired = false)]
+        public string LogCategory { get; set; }
     }
 }

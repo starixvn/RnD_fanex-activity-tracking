@@ -13,9 +13,12 @@
         static AppSettings()
         {
             LoadSecurityCodeConfig();
+            LogCategory = ActivityTrackingConfig.LogCategory ?? "NAP-Activity-Tracking";
         }
 
         public static ActivityTrackingConfig ActivityTrackingConfig { get; internal set; }
+
+        public static string LogCategory { get; internal set; }
 
         private static IBus bus;
 

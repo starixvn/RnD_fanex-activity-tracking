@@ -1,6 +1,7 @@
 ﻿namespace Fanex.ActivityTracking.Services
 {
     using System;
+    using Configurations;
     using EasyNetQ;
     using Logging;
 
@@ -13,12 +14,12 @@
 
         public void ErrorWrite(Exception exception)
         {
-            Logger.Log.Error(exception.Message, exception);
+            LogService.Error(exception.Message, AppSettings.LogCategory, exception);
         }
 
         public void ErrorWrite(string format, params object[] args)
         {
-            Logger.Log.Error(string.Format(format, args));
+            LogService.Error(string.Format(format, args), AppSettings.LogCategory);
         }
 
         public void InfoWrite(string format, params object[] args)

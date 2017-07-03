@@ -5,6 +5,7 @@
     using System.Web;
     using System.Web.SessionState;
     using Configurations;
+    using Logging;
     using Models;
     using Services;
 
@@ -59,36 +60,43 @@
                 return;
             }
 
-            var request = HttpContext.Current.Request;
-            var trackingItem = requestAnalyzer.GetTrackingItem(
-                request.Url.AbsolutePath,
-                AppSettings.ActivityTrackingConfig.TrackingItems);
-
-            if (trackingItem != null)
+            try
             {
-                var activity = new Activity
+
+                var request = HttpContext.Current.Request;
+                var trackingItem = requestAnalyzer.GetTrackingItem(
+                    request.Url.AbsolutePath,
+                    AppSettings.ActivityTrackingConfig.TrackingItems);
+
+                if (trackingItem != null)
                 {
-                    Actor = new Actor
+                    var activity = new Activity
                     {
-                        AdminId = userSession.AdminId,
-                        AdminName = userSession.AdminName,
-                        CustId = userSession.CustId,
-                        CustName = userSession.CustName
-                    },
-                    Action = trackingItem.Action,
-                    SessionID = userSession.SessionID,
-                    TimeAccessed = DateTime.Now,
-                    RequestInfo = requestAnalyzer.Analyze(request, trackingItem.Level),
-                    IPAddress = ipService.GetClientIPAddress(request),
-                    UrlAccessed = GetUrl(request),
-                    System = AppSettings.ActivityTrackingConfig.System,
-                    Environment = AppSettings.ActivityTrackingConfig.Environment,
-                    Site = AppSettings.ActivityTrackingConfig.Site
-                };
+                        Actor = new Actor
+                        {
+                            AdminId = userSession.AdminId,
+                            AdminName = userSession.AdminName,
+                            CustId = userSession.CustId,
+                            CustName = userSession.CustName
+                        },
+                        Action = trackingItem.Action,
+                        SessionID = userSession.SessionID,
+                        TimeAccessed = DateTime.Now,
+                        RequestInfo = requestAnalyzer.Analyze(request, trackingItem.Level),
+                        IPAddress = ipService.GetClientIPAddress(request),
+                        UrlAccessed = GetUrl(request),
+                        System = AppSettings.ActivityTrackingConfig.System,
+                        Environment = AppSettings.ActivityTrackingConfig.Environment,
+                        Site = AppSettings.ActivityTrackingConfig.Site
+                    };
 
-                logger.Write(activity);
+                    logger.Write(activity);
+                }
             }
-
+            catch(Exception ex)
+            {
+                LogService.Error(ex.Message, AppSettings.LogCategory, ex);
+            }
         }
 
         private static string GetUrl(HttpRequest request)
