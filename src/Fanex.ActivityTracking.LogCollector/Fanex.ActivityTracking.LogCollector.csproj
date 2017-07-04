@@ -115,11 +115,11 @@
     <None Include="App_Data\activitytracking.local.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.local.config">
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local.config">
       <DependentUpon>App.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.uat.config">
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat.config">
       <DependentUpon>App.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
