@@ -6,6 +6,7 @@
     using System.ServiceProcess;
     using ActivityTracking.Configurations;
     using Fanex.ActivityTracking.LogCollector.Services;
+    using Logging;
 
     partial class TrackingActivityService : ServiceBase
     {
@@ -21,7 +22,7 @@
             }
             catch(Exception ex)
             {
-                Logging.LogService.Error(ex.Message, ex);
+                LogService.Error(ex.Message, ex);
             }
         }
 
@@ -29,11 +30,12 @@
         {
             try
             {
+                LogService.Info("Activity Tracking Message Collector Service has been stated!");
                 messageQueueService.SubcribeActivityLogs();
             }
             catch (Exception ex)
             {
-                Logging.LogService.Error(ex.Message, ex);
+                LogService.Error(ex.Message, ex);
             }
         }
 

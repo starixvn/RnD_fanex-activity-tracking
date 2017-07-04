@@ -4,6 +4,7 @@
     using System.IO;
     using System.Linq;
     using System.Runtime.Serialization.Json;
+    using Logging;
 
     public static class AppSettings
     {
@@ -28,6 +29,8 @@
                     var serializer = new DataContractJsonSerializer(typeof(ActivityTrackingConfig));
                     ActivityTrackingConfig = (ActivityTrackingConfig)serializer.ReadObject(stream);
                     ToLowerAllUrls();
+
+                    LogService.Info($"Total tracking items: {ActivityTrackingConfig.TrackingItems.Count()}");
                 }
             }
             else
