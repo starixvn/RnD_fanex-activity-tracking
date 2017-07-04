@@ -9,11 +9,6 @@
     {
         public readonly static TrackingItem MiddleLevelTrackingItem = new TrackingItem { Level = TrackingLevel.Middle };
 
-        public TrackingItem()
-        {
-            Urls = Enumerable.Empty<string>();
-        }
-
         [DataMember(Name = "function", IsRequired = false)]
         public string Function { get; set; }
 

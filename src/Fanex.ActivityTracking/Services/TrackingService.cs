@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using Models;
+    using System;
 
     public interface TrackingService
     {
@@ -25,17 +26,30 @@
                 return TrackingItem.MiddleLevelTrackingItem;
             }
 
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                throw new ArgumentNullException(nameof(url));
+            }
+
+            if (trackingItems == null)
+            {
+                throw new ArgumentNullException(nameof(trackingItems));
+            }
+
             if (trackingItems.Any())
             {
                 var urlToLower = url.ToLowerInvariant();
                 foreach (var item in trackingItems)
                 {
-                    foreach (var itemUrl in item.Urls)
+                    if (item.Urls != null && item.Urls.Any())
                     {
-                        if (!string.IsNullOrWhiteSpace(itemUrl)
-                            && urlToLower.Contains(itemUrl))
+                        foreach (var itemUrl in item.Urls)
                         {
-                            return item;
+                            if (!string.IsNullOrWhiteSpace(itemUrl)
+                                && urlToLower.Contains(itemUrl))
+                            {
+                                return item;
+                            }
                         }
                     }
                 }

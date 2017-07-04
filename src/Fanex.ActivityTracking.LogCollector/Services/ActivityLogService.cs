@@ -44,9 +44,16 @@
 
         public Models.Result InsertActivity(Activity activity)
         {
-            if(trackingService.GetTrackingItem(activity.UrlAccessed, AppSettings.ActivityTrackingConfig.TrackingItems) == null)
+            var trackingItem = trackingService.GetTrackingItem(activity.UrlAccessed, AppSettings.ActivityTrackingConfig.TrackingItems);
+
+            if (trackingItem == null)
             {
                 return Models.Result.SuccessResult;
+            }
+
+            if(activity.Action == null)
+            {
+                activity.Action = trackingItem.Action;
             }
 
             var response = elasticClient.Index(
