@@ -33,7 +33,7 @@
             this.ipService = ipService ?? new IPServiceImpl();
         }
 
-        public bool IsIgnore
+        private bool IgnoreStaticFiles
         {
             get
             {
@@ -45,12 +45,20 @@
             }
         }
 
-        public bool IsSessionNull
+        private bool SessionIsNull
         {
             get
             {
-                return HttpContext.Current.Session == null;
+                return HttpContext.Current.Session == null
+                    || (userSession.AdminId == 0 && userSession.CustId == 0);
             }
+        }
+
+        private static string GetUrl(HttpRequest request)
+        {
+            return string.IsNullOrWhiteSpace(request.Url.Query)
+                                    ? request.Url.ToString()
+                                    : request.Url.ToString().Replace(request.Url.Query, string.Empty);
         }
 
         public void Init(HttpApplication context)
@@ -60,14 +68,13 @@
 
         private void AcquireRequestState(object sender, EventArgs e)
         {
-            if (IsSessionNull || IsIgnore)
+            if (SessionIsNull || IgnoreStaticFiles)
             {
                 return;
             }
 
             try
             {
-
                 var request = HttpContext.Current.Request;
                 var trackingItem = trackingService.GetTrackingItem(
                     request.Url.AbsolutePath,
@@ -104,15 +111,9 @@
             }
         }
 
-        private static string GetUrl(HttpRequest request)
-        {
-            return string.IsNullOrWhiteSpace(request.Url.Query)
-                                    ? request.Url.ToString()
-                                    : request.Url.ToString().Replace(request.Url.Query, string.Empty);
-        }
-
         public void Dispose()
         {
+            // Nothing to release resource here.
         }
     }
 }

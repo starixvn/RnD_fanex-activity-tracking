@@ -14,11 +14,12 @@
             {
                 if (bus == null)
                 {
-                    bus = RabbitHutch.CreateBus(AppSettings.ActivityTrackingConfig.RabbitMQConnectionString,
-                    serviceRegister =>
-                    {
-                        serviceRegister.Register<IEasyNetQLogger>(_ => new EasyNetQLogger());
-                    });
+                    bus = RabbitHutch.CreateBus(
+                        AppSettings.ActivityTrackingConfig.RabbitMQConnectionString,
+                        serviceRegister =>
+                        {
+                            serviceRegister.Register<IEasyNetQLogger>(_ => new EasyNetQLogger());
+                        });
                 }
 
                 return bus;

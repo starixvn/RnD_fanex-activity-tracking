@@ -3,7 +3,7 @@
     public class Result
     {
         public const int ErrorCode = 1;
-        public readonly static Result SuccessResult = new Result();
+        public static readonly Result SuccessResult = new Result();
 
         public int Code { get; set; }
 

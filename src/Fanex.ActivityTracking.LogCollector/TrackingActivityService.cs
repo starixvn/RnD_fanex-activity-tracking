@@ -20,7 +20,7 @@
                 AppSettings.Init(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), AppSettings.ActivityTrackingConfigFilePath));
                 messageQueueService = new MessageQueueServiceImpl();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogService.Error(ex.Message, ex);
             }

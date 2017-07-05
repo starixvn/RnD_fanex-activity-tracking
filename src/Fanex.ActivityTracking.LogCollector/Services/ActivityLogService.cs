@@ -51,7 +51,7 @@
                 return Models.Result.SuccessResult;
             }
 
-            if(activity.Action == null)
+            if (activity.Action == null)
             {
                 activity.Action = trackingItem.Action;
             }

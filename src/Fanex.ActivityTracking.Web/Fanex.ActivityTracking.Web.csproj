@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityTrackingHttpModule.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IPService.cs" />
     <Compile Include="IRequestAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

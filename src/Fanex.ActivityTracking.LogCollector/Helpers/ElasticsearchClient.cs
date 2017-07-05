@@ -9,18 +9,18 @@
 
     public static class ElasticsearchClient
     {
+        private static readonly string Username;
+
+        private static readonly string Password;
+
         private static IElasticClient elasticClient;
-
-        private static readonly string username;
-
-        private static readonly string password;
 
         static ElasticsearchClient()
         {
             var credential = AppSettings.ElasticsearchAuthInfo.Split(':');
 
-            username = credential.ElementAt(0);
-            password = credential.ElementAt(1);
+            Username = credential.ElementAt(0);
+            Password = credential.ElementAt(1);
         }
 
         public static IElasticClient Instance
@@ -38,7 +38,7 @@
                         ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, errors) => true;
                         connectionSettings = connectionSettings
                             .SniffOnStartup()
-                            .BasicAuthentication(username, password)
+                            .BasicAuthentication(Username, Password)
                             .PingTimeout(new TimeSpan(0, 1, 0))
                             .RequestTimeout(new TimeSpan(0, 1, 0));
                     }

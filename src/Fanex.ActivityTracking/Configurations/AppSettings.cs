@@ -8,17 +8,19 @@
 
     public static class AppSettings
     {
+        public static ActivityTrackingConfig ActivityTrackingConfig { get; internal set; }
+
+        public static string LogCategory { get; internal set; }
+
+        public static string ActivityTrackingConfigFilePath =>
+            ConfigurationManager.AppSettings["ActivityTracking:ConfigFilePath"]
+            ?? "~/App_Data/activitytracking.json";
+
         public static void Init(string configPath = null)
         {
             ReadAndDeserializeActivityTrackingConfig(configPath ?? ActivityTrackingConfigFilePath);
             LogCategory = ActivityTrackingConfig.LogCategory ?? "NAP-Activity-Tracking";
         }
-
-        public static ActivityTrackingConfig ActivityTrackingConfig { get; internal set; }
-
-        public static string LogCategory { get; internal set; }
-
-        public static string ActivityTrackingConfigFilePath => ConfigurationManager.AppSettings["ActivityTracking:ConfigFilePath"] ?? "~/App_Data/activitytracking.json";
 
         private static void ReadAndDeserializeActivityTrackingConfig(string configFilePath)
         {

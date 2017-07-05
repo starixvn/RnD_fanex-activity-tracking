@@ -1,17 +1,12 @@
 ﻿namespace Fanex.ActivityTracking.LogCollector
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
     using System.ServiceProcess;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Services;
 
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             ServiceBase[] servicesToRun = new ServiceBase[]
             {
