@@ -5,31 +5,106 @@
     {
       "level": "2",
       "action": "Search Account",
-      "urls": [ "CustInfo.aspx" ]
-    },
-    {
-      "level": "2",
-      "action": "View Statement",
-      "urls": [
-        "Statement/CustomerStatement.aspx"
+      "urls": [ "CustInfo.aspx" ],
+      "paramInfoList": [
+        { "actualName": "username", "friendlyName": "Customer Name"}
       ]
     },
     {
       "level": "2",
-      "action": "View Bet List",
+      "action": "View Account Statement",
       "urls": [
-        "BetList/BetList.aspx;BetList/CombinationMPDetail.aspx",
-        "BetList/BetListSystemparlay.aspx;BetList/GetBetListByProduct",
-        "TarusBetList/GetBetListByCustInfo_DateRange",
-        "BetList/GetBetListStatement",
-        "TarusBetList/BetListByCustInfo",
-        "BetList/GetBetListByCustInfo_SystemParLayTab"
+        "Statement/CustomerStatement.aspx",
+        "Statement/GetData.ashx",
+        "Services/WCF/ServiceDailyTran.svc/VerifyTransaction",
+        "NapStatement/StatementReport/MemberStatement"
+      ],
+      "paramInfoList": [
+        { "actualName": "username", "friendlyName": "Customer Name"},
+        { "actualName": "custname", "friendlyName": "Customer Name"}
+      ]
+    },
+    {
+      "level": "2",
+      "action": "View Bet List By IP",
+      "urls": [
+        "BetList/GetBetListByIP_Username",
+        "BetList/BetListByIP.aspx",
+        "TarusBetList/BetListByIP"
+      ],
+      "paramInfoList": [
+        {
+          "actualName": "customerId",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "transactionId",
+          "friendlyName": "Transaction Id"
+        },
+        {
+          "actualName": "ip",
+          "friendlyName": "IP"
+        },
+        {
+          "actualName": "refno",
+          "friendlyName": "Ref No"
+        }
+      ]
+    },
+        {
+      "level": "2",
+      "action": "View Bet List By Refno",
+      "urls": [
+        "BetList/GetBetListByCustInfo_Refno",
+        "BetList/GetBetListByCustInfo_SystemParLayTab",
+        "BetList/GetBetListByRefNo",
+        "BetList/BetListByRefNo_Main",
+        "TarusBetList/BetListByRefNo_Main",
+        "BetList/GetBetListByProduct"
+      ],
+      "paramInfoList": [
+        {
+          "actualName": "customerId",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "transactionId",
+          "friendlyName": "Transaction Id"
+        },
+        {
+          "actualName": "ip",
+          "friendlyName": "IP"
+        },
+        {
+          "actualName": "refno",
+          "friendlyName": "Ref No"
+        }
       ]
     },
     {
       "level": "2",
       "action": "Customer Setting",
-      "function": "[Customer]"
+      "urls": [
+        "ThirdPartyProductStatus/Update",
+        "updateCustomerSetting/updateSetting",
+        "LiveCasinoSetting/Setting/UpdateLiveCasinoSetting"
+      ],
+      "paramInfoList": [
+        { "actualName": "custId", "friendlyName": "Customer Id"},
+        {
+          "actualName": "customerId",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "Id",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "ProductId",
+          "friendlyName": "Product Id"
+        }
+        
+      ]
     }
   ]
 }

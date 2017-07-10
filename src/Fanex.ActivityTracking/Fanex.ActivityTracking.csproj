@@ -106,6 +106,7 @@
     <Compile Include="Helpers\RabbitMqClient.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Actor.cs" />
+    <Compile Include="Models\ParamInfo.cs" />
     <Compile Include="Models\RequestInfo.cs" />
     <Compile Include="Models\TrackingItem.cs" />
     <Compile Include="Models\TrackingLevel.cs" />

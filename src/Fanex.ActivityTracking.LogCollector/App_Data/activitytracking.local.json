@@ -1,11 +1,14 @@
 {
   "rabbitMQConnectionString": "host=10.35.35.253,10.35.35.254;virtualHost=/ActivityTracking;username=activity_tracking;password=1234bb",
   "enabledTrackAllRequests": false,
-  "trackingItems": [
+   "trackingItems": [
     {
       "level": "2",
       "action": "Search Account",
-      "urls": [ "CustInfo.aspx" ]
+      "urls": [ "CustInfo.aspx" ],
+      "paramInfoList": [
+        { "actualName": "username", "friendlyName": "Customer Name"}
+      ]
     },
     {
       "level": "2",
@@ -15,6 +18,10 @@
         "Statement/GetData.ashx",
         "Services/WCF/ServiceDailyTran.svc/VerifyTransaction",
         "NapStatement/StatementReport/MemberStatement"
+      ],
+      "paramInfoList": [
+        { "actualName": "username", "friendlyName": "Customer Name"},
+        { "actualName": "custname", "friendlyName": "Customer Name"}
       ]
     },
     {
@@ -24,9 +31,27 @@
         "BetList/GetBetListByIP_Username",
         "BetList/BetListByIP.aspx",
         "TarusBetList/BetListByIP"
+      ],
+      "paramInfoList": [
+        {
+          "actualName": "customerId",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "transactionId",
+          "friendlyName": "Transaction Id"
+        },
+        {
+          "actualName": "ip",
+          "friendlyName": "IP"
+        },
+        {
+          "actualName": "refno",
+          "friendlyName": "Ref No"
+        }
       ]
     },
-    {
+        {
       "level": "2",
       "action": "View Bet List By Refno",
       "urls": [
@@ -36,6 +61,49 @@
         "BetList/BetListByRefNo_Main",
         "TarusBetList/BetListByRefNo_Main",
         "BetList/GetBetListByProduct"
+      ],
+      "paramInfoList": [
+        {
+          "actualName": "customerId",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "transactionId",
+          "friendlyName": "Transaction Id"
+        },
+        {
+          "actualName": "ip",
+          "friendlyName": "IP"
+        },
+        {
+          "actualName": "refno",
+          "friendlyName": "Ref No"
+        }
+      ]
+    },
+    {
+      "level": "2",
+      "action": "Customer Setting",
+      "urls": [
+        "ThirdPartyProductStatus/Update",
+        "updateCustomerSetting/updateSetting",
+        "LiveCasinoSetting/Setting/UpdateLiveCasinoSetting"
+      ],
+      "paramInfoList": [
+        { "actualName": "custId", "friendlyName": "Customer Id"},
+        {
+          "actualName": "customerId",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "Id",
+          "friendlyName": "Customer Id"
+        },
+        {
+          "actualName": "ProductId",
+          "friendlyName": "Product Id"
+        }
+        
       ]
     }
   ]

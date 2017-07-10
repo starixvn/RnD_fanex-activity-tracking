@@ -7,6 +7,7 @@
     public class TrackingItem
     {
         public static readonly TrackingItem MiddleLevelTrackingItem = new TrackingItem { Level = TrackingLevel.Middle };
+        public static readonly TrackingItem NoTrackingItem = new TrackingItem { Level = TrackingLevel.NoTracking };
 
         [DataMember(Name = "function", IsRequired = false)]
         public string Function { get; set; }
@@ -19,5 +20,9 @@
 
         [DataMember(Name = "level", IsRequired = false)]
         public TrackingLevel Level { get; set; }
+
+
+        [DataMember(Name = "paramInfoList", IsRequired = false)]
+        public IEnumerable<ParamInfo> ParamInfoList { get; set; }
     }
 }

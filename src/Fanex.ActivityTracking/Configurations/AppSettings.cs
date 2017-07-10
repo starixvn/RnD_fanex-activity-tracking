@@ -50,6 +50,12 @@
                     trackingItem.Urls = trackingItem.Urls.Select(url => url.ToLowerInvariant());
                 }
             }
+
+            if (ActivityTrackingConfig.IgnoredUrls != null
+                && ActivityTrackingConfig.IgnoredUrls.Any())
+            {
+                ActivityTrackingConfig.IgnoredUrls = ActivityTrackingConfig.IgnoredUrls.Select(url => url.ToLowerInvariant());
+            }
         }
     }
 }

@@ -80,7 +80,8 @@
                     request.Url.AbsolutePath,
                     AppSettings.ActivityTrackingConfig.TrackingItems);
 
-                if (trackingItem != null)
+                if (trackingItem != null
+                    && trackingItem.Level != TrackingLevel.NoTracking)
                 {
                     var activity = new Activity
                     {

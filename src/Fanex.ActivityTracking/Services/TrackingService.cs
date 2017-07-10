@@ -12,7 +12,7 @@
 
     public class TrackingServiceImpl : TrackingService
     {
-        private readonly bool enabledTrackAllRequests;
+        protected readonly bool enabledTrackAllRequests;
 
         public TrackingServiceImpl(bool enabledTrackAllRequests)
         {
@@ -55,7 +55,7 @@
                 }
             }
 
-            return null;
+            return TrackingItem.NoTrackingItem;
         }
     }
 }

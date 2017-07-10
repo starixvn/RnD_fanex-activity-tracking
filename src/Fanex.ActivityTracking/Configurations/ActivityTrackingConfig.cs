@@ -33,5 +33,8 @@
 
         [DataMember(Name = "logCategory", IsRequired = false)]
         public string LogCategory { get; set; }
+
+        [DataMember(Name = "ignoredUrls", IsRequired = false)]
+        public IEnumerable<string> IgnoredUrls { get; set; }
     }
 }
