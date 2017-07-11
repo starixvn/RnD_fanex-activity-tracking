@@ -7,7 +7,10 @@
       "action": "Search Account",
       "urls": [ "CustInfo.aspx" ],
       "paramInfoList": [
-        { "actualName": "username", "friendlyName": "Customer Name"}
+        {
+          "actualNames": [ "username" ],
+          "friendlyName": "Customer Name"
+        }
       ]
     },
     {
@@ -20,8 +23,9 @@
         "NapStatement/StatementReport/MemberStatement"
       ],
       "paramInfoList": [
-        { "actualName": "username", "friendlyName": "Customer Name"},
-        { "actualName": "custname", "friendlyName": "Customer Name"}
+        {
+          "actualNames": [ "username", "custname" ], "friendlyName": "Customer Name"
+        }
       ]
     },
     {
@@ -34,19 +38,19 @@
       ],
       "paramInfoList": [
         {
-          "actualName": "customerId",
+          "actualNames": [ "customerId" ],
           "friendlyName": "Customer Id"
         },
         {
-          "actualName": "transactionId",
+          "actualNames": [ "transactionId" ],
           "friendlyName": "Transaction Id"
         },
         {
-          "actualName": "ip",
+          "actualNames": [ "ip" ],
           "friendlyName": "IP"
         },
         {
-          "actualName": "refno",
+          "actualNames": [ "refno" ],
           "friendlyName": "Ref No"
         }
       ]
@@ -64,19 +68,19 @@
       ],
       "paramInfoList": [
         {
-          "actualName": "customerId",
+          "actualNames": [ "customerId" ],
           "friendlyName": "Customer Id"
         },
         {
-          "actualName": "transactionId",
+          "actualNames": [ "transactionId" ],
           "friendlyName": "Transaction Id"
         },
         {
-          "actualName": "ip",
+          "actualNames": [ "ip" ],
           "friendlyName": "IP"
         },
         {
-          "actualName": "refno",
+          "actualNames": [ "refno" ],
           "friendlyName": "Ref No"
         }
       ]
@@ -90,20 +94,18 @@
         "LiveCasinoSetting/Setting/UpdateLiveCasinoSetting"
       ],
       "paramInfoList": [
-        { "actualName": "custId", "friendlyName": "Customer Id"},
         {
-          "actualName": "customerId",
+          "actualNames": [ "custId", "customerId", "Id" ],
           "friendlyName": "Customer Id"
         },
         {
-          "actualName": "Id",
-          "friendlyName": "Customer Id"
-        },
-        {
-          "actualName": "ProductId",
+          "actualNames": [ "ProductId" ],
           "friendlyName": "Product Id"
+        },
+        {
+          "actualNames": [ "ProductName" ],
+          "friendlyName": "Product Name"
         }
-        
       ]
     }
   ]

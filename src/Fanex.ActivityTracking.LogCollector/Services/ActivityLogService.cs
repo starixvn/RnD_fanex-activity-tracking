@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Text.RegularExpressions;
     using ActivityTracking.Configurations;
     using ActivityTracking.Models;
@@ -79,7 +78,7 @@
             return response.IsValid ? Models.Result.SuccessResult : Models.Result.CreateErrorResult(response.ToString());
         }
 
-        private string ExtractDataFromRequest(Activity activity, TrackingItem trackingItem)
+        internal string ExtractDataFromRequest(Activity activity, TrackingItem trackingItem)
         {
             var queryStringAndFormData = ExtractDataFromQueryString(
                 (activity.RequestInfo.QueryString ?? string.Empty) + (activity.RequestInfo.Form ?? string.Empty),
@@ -93,10 +92,10 @@
                 return string.Empty;
             }
 
-            return $"{queryStringAndFormData} \r\n {bodyData}";
+            return $"{queryStringAndFormData}\r\n{bodyData}";
         }
 
-        private string ExtractDataFromQueryString(string queryString, IEnumerable<ParamInfo> paramInfoList)
+        internal string ExtractDataFromQueryString(string queryString, IEnumerable<ParamInfo> paramInfoList)
         {
             if (string.IsNullOrEmpty(queryString)
                 || paramInfoList == null
@@ -108,7 +107,7 @@
             return GetDataFromRegex(queryString, regexQueryString, paramInfoList);
         }
 
-        private string ExtractDataFromBodyRequest(string body, IEnumerable<ParamInfo> paramInfoList)
+        internal string ExtractDataFromBodyRequest(string body, IEnumerable<ParamInfo> paramInfoList)
         {
             if (string.IsNullOrWhiteSpace(body)
                 || !body.Contains("{"))
@@ -121,21 +120,28 @@
             return GetDataFromRegex(body, regexBodyJson, paramInfoList);
         }
 
-        private string GetDataFromRegex(string text, string pattern, IEnumerable<ParamInfo> paramInfoList)
+        internal string GetDataFromRegex(string text, string pattern, IEnumerable<ParamInfo> paramInfoList)
         {
-            var extractedDataBuilder = new StringBuilder();
+            var extractedDataDictionary = new Dictionary<string, string>();
 
             foreach (var paramInfo in paramInfoList)
             {
-                var regexMatch = Regex.Match(text, string.Format(pattern, paramInfo.ActualName), RegexOptions.IgnoreCase);
-
-                if (regexMatch.Success)
+                foreach (var actualName in paramInfo.ActualNames)
                 {
-                    extractedDataBuilder.Append($"{paramInfo.FriendlyName ?? paramInfo.ActualName} = {regexMatch.Groups[paramValue]} \r\n");
+                    var regexMatch = Regex.Match(text, string.Format(pattern, actualName), RegexOptions.IgnoreCase);
+
+                    if (regexMatch.Success)
+                    {
+                        var friendlyName = paramInfo.FriendlyName ?? actualName;
+                        if (!extractedDataDictionary.ContainsKey(friendlyName))
+                        {
+                            extractedDataDictionary[friendlyName] = regexMatch.Groups[paramValue].ToString();
+                        }
+                    }
                 }
             }
 
-            return extractedDataBuilder.ToString();
+            return string.Join(",\r\n", extractedDataDictionary.Select(m => $"{m.Key} = {m.Value}"));
         }
     }
 }
