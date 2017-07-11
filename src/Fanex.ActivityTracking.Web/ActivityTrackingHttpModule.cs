@@ -54,13 +54,6 @@
             }
         }
 
-        private static string GetUrl(HttpRequest request)
-        {
-            return string.IsNullOrWhiteSpace(request.Url.Query)
-                                    ? request.Url.ToString()
-                                    : request.Url.ToString().Replace(request.Url.Query, string.Empty);
-        }
-
         public void Init(HttpApplication context)
         {
             context.AcquireRequestState += new EventHandler(AcquireRequestState);
@@ -97,7 +90,7 @@
                         TimeAccessed = DateTime.Now,
                         RequestInfo = requestAnalyzer.Analyze(request, trackingItem.Level),
                         IPAddress = ipService.GetClientIPAddress(request),
-                        UrlAccessed = GetUrl(request),
+                        UrlAccessed = request.Url.ToString(),
                         System = AppSettings.ActivityTrackingConfig.System,
                         Environment = AppSettings.ActivityTrackingConfig.Environment,
                         Site = AppSettings.ActivityTrackingConfig.Site
