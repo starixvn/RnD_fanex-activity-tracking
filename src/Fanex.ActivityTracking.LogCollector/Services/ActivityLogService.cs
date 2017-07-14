@@ -23,20 +23,19 @@
     {
         private readonly IElasticClient elasticClient;
         private readonly TrackingService trackingService;
-        private readonly ILogger logger;
-        private static readonly char[] SplitCharForQueryString = new[] { '&' };
         private const string regexQueryString = "(?:{0}=)(?<paramValue>[^&]+)";
         private const string regexBodyJson = "(\"{0}\":)(?<paramValue>[^,]+)";
         private const string paramValue = "paramValue";
+        private readonly ActivityTrackingConfig activityTrackingConfig;
 
         public ActivityLogServiceImpl(
             IElasticClient elasticClient = null,
             TrackingService trackingService = null,
-            ILogger logger = null)
+            ActivityTrackingConfig activityTrackingConfig = null)
         {
+            this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
             this.elasticClient = elasticClient ?? ElasticsearchClient.Instance;
-            this.trackingService = trackingService ?? new TrackingServiceImpl(AppSettings.ActivityTrackingConfig.EnabledTrackingAllRequests);
-            this.logger = logger ?? Logger.Log;
+            this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig.EnabledTrackingAllRequests);
         }
 
         public IEnumerable<Activity> GetActivities(string system)
@@ -53,7 +52,10 @@
 
         public Models.Result InsertActivity(Activity activity)
         {
-            var trackingItem = trackingService.GetTrackingItem(activity.UrlAccessed, AppSettings.ActivityTrackingConfig.TrackingItems);
+            var trackingItem = trackingService.GetTrackingItem(
+                activity.UrlAccessed,
+                activityTrackingConfig.TrackingItems,
+                activityTrackingConfig.IgnoredUrls);
 
             if (trackingItem == null
                 || trackingItem.Level == TrackingLevel.NoTracking)

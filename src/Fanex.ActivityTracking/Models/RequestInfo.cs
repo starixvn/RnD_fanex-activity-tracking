@@ -10,6 +10,8 @@
 
         public string BodyData { get; set; }
 
+        public string HttpData { get; set; }
+
         public string Others { get; set; }
     }
 }

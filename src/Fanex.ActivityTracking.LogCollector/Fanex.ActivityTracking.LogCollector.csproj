@@ -93,7 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AppSettings.cs" />
-    <Compile Include="FunctionManager.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\ElasticsearchClient.cs" />
     <Compile Include="Models\Result.cs" />

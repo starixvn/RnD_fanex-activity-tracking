@@ -7,7 +7,7 @@
 
     public interface TrackingService
     {
-        TrackingItem GetTrackingItem(string url, IEnumerable<TrackingItem> trackingItems);
+        TrackingItem GetTrackingItem(string url, IEnumerable<TrackingItem> trackingItems, IEnumerable<string> ignoredUrls);
     }
 
     public class TrackingServiceImpl : TrackingService
@@ -19,11 +19,11 @@
             this.enabledTrackAllRequests = enabledTrackAllRequests;
         }
 
-        public virtual TrackingItem GetTrackingItem(string url, IEnumerable<TrackingItem> trackingItems)
+        public virtual TrackingItem GetTrackingItem(string url, IEnumerable<TrackingItem> trackingItems, IEnumerable<string> ignoredUrls)
         {
             if (enabledTrackAllRequests)
             {
-                return TrackingItem.MiddleLevelTrackingItem;
+                return CheckIgnoredUrl(url, ignoredUrls);
             }
 
             if (string.IsNullOrWhiteSpace(url))
@@ -39,16 +39,17 @@
             if (trackingItems.Any())
             {
                 var urlToLower = url.ToLowerInvariant();
-                foreach (var item in trackingItems)
+                foreach (var trackingItem in trackingItems)
                 {
-                    if (item.Urls != null && item.Urls.Any())
+                    if (trackingItem.Urls != null 
+                        && trackingItem.Urls.Any())
                     {
-                        foreach (var itemUrl in item.Urls)
+                        foreach (var trackingUrl in trackingItem.Urls)
                         {
-                            if (!string.IsNullOrWhiteSpace(itemUrl)
-                                && urlToLower.Contains(itemUrl))
+                            if (!string.IsNullOrWhiteSpace(trackingUrl)
+                                && urlToLower.Contains(trackingUrl))
                             {
-                                return item;
+                                return trackingItem;
                             }
                         }
                     }
@@ -56,6 +57,25 @@
             }
 
             return TrackingItem.NoTrackingItem;
+        }
+
+        private TrackingItem CheckIgnoredUrl(string url, IEnumerable<string> ignoredUrls)
+        {
+            if (ignoredUrls != null 
+                && ignoredUrls.Any())
+            {
+                var urlToLower = url.ToLowerInvariant();
+                foreach (var ignoredUrl in ignoredUrls)
+                {
+                    if(!string.IsNullOrWhiteSpace(ignoredUrl) 
+                        && urlToLower.Contains(ignoredUrl))
+                    {
+                        return TrackingItem.NoTrackingItem;
+                    }
+                }
+            }
+
+            return TrackingItem.MiddleLevelTrackingItem;
         }
     }
 }

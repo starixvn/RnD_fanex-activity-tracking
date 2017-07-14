@@ -6,8 +6,13 @@
     [DataContract]
     public class TrackingItem
     {
-        public static readonly TrackingItem MiddleLevelTrackingItem = new TrackingItem { Level = TrackingLevel.Middle };
+        public static readonly TrackingItem MiddleLevelTrackingItem = new TrackingItem { Level = TrackingLevel.Basic };
         public static readonly TrackingItem NoTrackingItem = new TrackingItem { Level = TrackingLevel.NoTracking };
+
+        public TrackingItem()
+        {
+            Level = TrackingLevel.Basic;
+        }
 
         [DataMember(Name = "function", IsRequired = false)]
         public string Function { get; set; }
@@ -18,9 +23,7 @@
         [DataMember(Name = "urls", IsRequired = false)]
         public IEnumerable<string> Urls { get; set; }
 
-        [DataMember(Name = "level", IsRequired = false)]
         public TrackingLevel Level { get; set; }
-
 
         [DataMember(Name = "paramInfoList", IsRequired = false)]
         public IEnumerable<ParamInfo> ParamInfoList { get; set; }

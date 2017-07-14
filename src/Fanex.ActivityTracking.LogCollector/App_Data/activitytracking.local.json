@@ -3,7 +3,6 @@
   "enabledTrackAllRequests": false,
   "trackingItems": [
     {
-      "level": "2",
       "action": "Search Account",
       "urls": [ "CustInfo.aspx" ],
       "paramInfoList": [
@@ -14,7 +13,6 @@
       ]
     },
     {
-      "level": "2",
       "action": "View Account Statement",
       "urls": [
         "Statement/CustomerStatement.aspx",
@@ -30,7 +28,6 @@
       ]
     },
     {
-      "level": "2",
       "action": "View Bet List By IP",
       "urls": [
         "BetList/GetBetListByIP_Username",
@@ -57,7 +54,6 @@
       ]
     },
     {
-      "level": "2",
       "action": "View Bet List By Refno",
       "urls": [
         "BetList/GetBetListByCustInfo_Refno",
@@ -87,7 +83,6 @@
       ]
     },
     {
-      "level": "2",
       "action": "Customer Setting",
       "urls": [
         "ThirdPartyProductStatus/Update",

@@ -3,6 +3,7 @@
     using System;
     using ActivityTracking.Helpers;
     using ActivityTracking.Models;
+    using Configurations;
     using EasyNetQ;
     using Logging;
 
@@ -15,25 +16,27 @@
 
     public class MessageQueueServiceImpl : MessageQueueService
     {
-        private const string SubscriptionId = "Fanex.ActivityTracking.LogCollector.Services";
         private readonly IBus bus;
         private readonly ActivityLogService activityLogService;
         private readonly ILogger logger;
+        private readonly string subscriptionId;
 
         public MessageQueueServiceImpl(
             ActivityLogService activityLogService = null,
             IBus bus = null,
-            ILogger logger = null)
+            ILogger logger = null,
+            string subscriptionId = null)
         {
             this.bus = bus ?? RabbitMqClient.Bus;
             this.activityLogService = activityLogService ?? new ActivityLogServiceImpl();
             this.logger = logger ?? Logger.Log;
+            this.subscriptionId = AppSettings.SubscriptionId;
         }
 
         public void SubcribeActivityLogs()
         {
             bus.Subscribe<Activity>(
-            SubscriptionId,
+            subscriptionId,
             activity =>
             {
                 try

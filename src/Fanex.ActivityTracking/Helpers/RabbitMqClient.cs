@@ -24,6 +24,11 @@
 
                 return bus;
             }
+
+            internal set
+            {
+                bus = value;
+            }
         }
     }
 }

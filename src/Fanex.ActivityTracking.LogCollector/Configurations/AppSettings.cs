@@ -18,6 +18,8 @@
             ElasticsearchIndex = ConfigurationManager.AppSettings["ElasticsearchIndex"] ?? "tracking_activity";
 
             ElasticsearchAuthInfo = ConfigurationManager.AppSettings["ElasticsearchAuthInfo"] ?? "admin:admin";
+
+            SubscriptionId = ConfigurationManager.AppSettings["SubscriptionId"] ?? "Fanex.ActivityTracking.LogCollector.Services";
         }
 
         public static IEnumerable<Uri> UriList { get; internal set; }
@@ -27,5 +29,7 @@
         public static string ElasticsearchIndex { get; internal set; }
 
         public static string ElasticsearchAuthInfo { get; internal set; }
+
+        public static string SubscriptionId { get; internal set; }
     }
 }

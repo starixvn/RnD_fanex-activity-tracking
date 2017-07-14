@@ -102,7 +102,7 @@
     <Compile Include="ActivityTrackingHttpModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IPService.cs" />
-    <Compile Include="IRequestAnalyzer.cs" />
+    <Compile Include="RequestAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

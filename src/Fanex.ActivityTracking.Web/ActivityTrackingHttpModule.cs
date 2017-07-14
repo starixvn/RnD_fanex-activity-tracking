@@ -11,52 +11,63 @@
 
     public class ActivityTrackingHttpModule : IHttpModule, IRequiresSessionState
     {
-        private readonly IActivityLogger logger;
+        private static readonly Regex IgnoreStaticFilesPartern = new Regex("([^\\s]+(\\.(?i)(jpg|png|gif|bmp|css|js))$)");
+        private readonly IActivityLogger activityLogger;
         private readonly IUserSession userSession;
         private readonly IRequestAnalyzer requestAnalyzer;
         private readonly IPService ipService;
         private readonly TrackingService trackingService;
+        private readonly ILogger logger;
+        private HttpRequest httpRequest;
+        private readonly ActivityTrackingConfig activityTrackingConfig;
 
         public ActivityTrackingHttpModule(
-            Action initConfig,
             IUserSession userSession,
             IRequestAnalyzer requestAnalyzer,
             TrackingService trackingService = null,
-            IActivityLogger logger = null,
-            IPService ipService = null)
+            IActivityLogger activityLogger = null,
+            IPService ipService = null,
+            ILogger logger = null,
+            ActivityTrackingConfig activityTrackingConfig = null)
         {
-            initConfig();
+            InitHttpModule();
             this.userSession = userSession;
             this.requestAnalyzer = requestAnalyzer;
             this.trackingService = trackingService ?? new TrackingServiceImpl(AppSettings.ActivityTrackingConfig.EnabledTrackingAllRequests);
-            this.logger = logger ?? new ActivityLogger();
+            this.activityLogger = activityLogger ?? new ActivityLogger();
             this.ipService = ipService ?? new IPServiceImpl();
+            this.logger = logger ?? Logger.Log;
+            this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
         }
 
-        private bool IgnoreStaticFiles
+        public static void InitHttpModule()
         {
-            get
+            if (AppSettings.ActivityTrackingConfig == null
+                && HttpContext.Current != null
+                && HttpContext.Current.Server != null)
             {
-                var pattern = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp|css|js))$)";
-
-                Regex urlRegex = new Regex(pattern);
-
-                return urlRegex.IsMatch(HttpContext.Current.Request.Path, (int)RegexOptions.IgnoreCase);
+                AppSettings.Init(HttpContext.Current.Server.MapPath(AppSettings.ActivityTrackingConfigFilePath));
             }
         }
 
-        private bool SessionIsNull
-        {
-            get
-            {
-                return HttpContext.Current.Session == null
+        private bool IgnoreStaticFiles => IgnoreStaticFilesPartern.IsMatch(HttpContext.Current.Request.Path, (int)RegexOptions.IgnoreCase);
+
+        private bool SessionIsNull => HttpContext.Current.Session == null
                     || (userSession.AdminId == 0 && userSession.CustId == 0);
-            }
-        }
 
-        public void Init(HttpApplication context)
+        public void Init(HttpApplication context) => context.AcquireRequestState += new EventHandler(AcquireRequestState);
+
+        public HttpRequest HttpRequest
         {
-            context.AcquireRequestState += new EventHandler(AcquireRequestState);
+            get
+            {
+                return httpRequest ?? HttpContext.Current.Request;
+            }
+
+            internal set
+            {
+                httpRequest = value;
+            }
         }
 
         private void AcquireRequestState(object sender, EventArgs e)
@@ -68,10 +79,10 @@
 
             try
             {
-                var request = HttpContext.Current.Request;
                 var trackingItem = trackingService.GetTrackingItem(
-                    request.Url.AbsolutePath,
-                    AppSettings.ActivityTrackingConfig.TrackingItems);
+                    HttpRequest.Url.AbsolutePath,
+                    activityTrackingConfig.TrackingItems,
+                    activityTrackingConfig.IgnoredUrls);
 
                 if (trackingItem != null
                     && trackingItem.Level != TrackingLevel.NoTracking)
@@ -88,20 +99,20 @@
                         Action = trackingItem.Action,
                         SessionID = userSession.SessionID,
                         TimeAccessed = DateTime.Now,
-                        RequestInfo = requestAnalyzer.Analyze(request, trackingItem.Level),
-                        IPAddress = ipService.GetClientIPAddress(request),
-                        UrlAccessed = request.Url.ToString(),
-                        System = AppSettings.ActivityTrackingConfig.System,
-                        Environment = AppSettings.ActivityTrackingConfig.Environment,
-                        Site = AppSettings.ActivityTrackingConfig.Site
+                        RequestInfo = requestAnalyzer.Analyze(HttpRequest),
+                        IPAddress = ipService.GetClientIPAddress(HttpRequest),
+                        UrlAccessed = HttpRequest.Url.ToString(),
+                        System = activityTrackingConfig.System,
+                        Environment = activityTrackingConfig.Environment,
+                        Site = activityTrackingConfig.Site
                     };
 
-                    logger.Write(activity);
+                    activityLogger.Write(activity);
                 }
             }
             catch (Exception ex)
             {
-                LogService.Error(ex.Message, AppSettings.LogCategory, ex);
+                logger.Error(ex.Message, AppSettings.LogCategory, ex);
             }
         }
 
