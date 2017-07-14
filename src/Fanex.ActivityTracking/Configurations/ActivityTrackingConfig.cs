@@ -8,11 +8,6 @@
     [DataContract]
     public class ActivityTrackingConfig
     {
-        public ActivityTrackingConfig()
-        {
-            TrackingItems = Enumerable.Empty<TrackingItem>();
-        }
-
         [DataMember(Name = "rabbitMQConnectionString")]
         public string RabbitMQConnectionString { get; set; }
 
@@ -36,5 +31,12 @@
 
         [DataMember(Name = "ignoredUrls", IsRequired = false)]
         public IEnumerable<string> IgnoredUrls { get; set; }
+
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        {
+            TrackingItems = Enumerable.Empty<TrackingItem>();
+            IgnoredUrls = Enumerable.Empty<string>();
+        }
     }
 }

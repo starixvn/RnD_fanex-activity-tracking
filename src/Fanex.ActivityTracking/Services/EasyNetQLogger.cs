@@ -8,7 +8,8 @@
     public class EasyNetQLogger : IEasyNetQLogger
     {
         public void DebugWrite(string format, params object[] args)
-            => LogService.Info(string.Format(format, args), AppSettings.LogCategory);
+        {
+        }
 
         public void ErrorWrite(Exception exception) 
             => LogService.Error(exception.Message, AppSettings.LogCategory, exception);

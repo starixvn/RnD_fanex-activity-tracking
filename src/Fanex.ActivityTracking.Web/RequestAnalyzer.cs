@@ -1,5 +1,6 @@
 ﻿namespace Fanex.ActivityTracking.Web
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Web;
     using Models;
@@ -27,8 +28,24 @@
                 Form = request.Form.ToString(),
                 QueryString = request.Url.Query,
                 BodyData = GetBodyData(request),
-                HttpData = jsonConverter.SerializeObject(new { request.Cookies, request.Headers, request.Files, request.Params })
+                HttpData = jsonConverter.SerializeObject(
+                    new
+                    {
+                        Headers = GetHeaders(request)
+                    })
             };
+        }
+
+        private Dictionary<string, string> GetHeaders(HttpRequest request)
+        {
+            var headers = new Dictionary<string, string>();
+
+            foreach (var headerKey in request.Headers.AllKeys)
+            {
+                headers.Add(headerKey, request.Headers[headerKey]);
+            }
+
+            return headers;
         }
 
         private string GetBodyData(HttpRequest request)

@@ -43,11 +43,15 @@
 
         private static void ToLowerAllUrls()
         {
-            foreach (var trackingItem in ActivityTrackingConfig.TrackingItems)
+            if (ActivityTrackingConfig.TrackingItems != null
+               && ActivityTrackingConfig.TrackingItems.Any())
             {
-                if (trackingItem.Urls != null && trackingItem.Urls.Any())
+                foreach (var trackingItem in ActivityTrackingConfig.TrackingItems)
                 {
-                    trackingItem.Urls = trackingItem.Urls.Select(url => url.ToLowerInvariant());
+                    if (trackingItem.Urls != null && trackingItem.Urls.Any())
+                    {
+                        trackingItem.Urls = trackingItem.Urls.Select(url => url.ToLowerInvariant());
+                    }
                 }
             }
 

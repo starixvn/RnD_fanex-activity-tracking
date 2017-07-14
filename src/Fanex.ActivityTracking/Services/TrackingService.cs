@@ -75,7 +75,7 @@
                 }
             }
 
-            return TrackingItem.MiddleLevelTrackingItem;
+            return TrackingItem.BasicTrackingItem;
         }
     }
 }
