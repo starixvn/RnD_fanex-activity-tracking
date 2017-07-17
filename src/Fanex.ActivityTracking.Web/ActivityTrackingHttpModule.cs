@@ -33,11 +33,11 @@
             InitHttpModule();
             this.userSession = userSession;
             this.requestAnalyzer = requestAnalyzer;
-            this.trackingService = trackingService ?? new TrackingServiceImpl(AppSettings.ActivityTrackingConfig.EnabledTrackingAllRequests);
+            this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
+            this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig);
             this.activityLogger = activityLogger ?? new ActivityLogger();
             this.ipService = ipService ?? new IPServiceImpl();
             this.logger = logger ?? Logger.Log;
-            this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
         }
 
         public static void InitHttpModule()

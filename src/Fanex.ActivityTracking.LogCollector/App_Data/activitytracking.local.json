@@ -1,13 +1,25 @@
 {
   "rabbitMQConnectionString": "host=10.18.200.103,10.18.200.104;virtualHost=/ActivityTracking;username=activity_tracking;password=1234bb",
   "enabledTrackAllRequests": false,
-  "trackingItems": [
+   "trackingItems": [
     {
       "action": "Search Account",
       "urls": [ "CustInfo.aspx" ],
       "paramInfoList": [
         {
           "actualNames": [ "username" ],
+          "friendlyName": "Customer Name"
+        }
+      ]
+    },
+    {
+      "action": "Internal Login",
+      "urls": [
+        "InternalView.aspx"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "custName" ],
           "friendlyName": "Customer Name"
         }
       ]

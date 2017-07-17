@@ -1,6 +1,13 @@
 {
   "rabbitMQConnectionString": "host=10.18.200.103,10.18.200.104;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=1234bb",
-  "enabledTrackAllRequests": false,
+  "enabledTrackAllRequests": true,
+  "ignoredUrls": [
+    "footer.aspx",
+    "Services/WCF/ServiceMenu.svc/GetMenuList",
+    "Default.aspx",
+    "Handlers/OnlineUpd.ashx",
+    "Index.aspx"
+  ],
   "trackingItems": [
     {
       "action": "Search Account",
@@ -8,6 +15,18 @@
       "paramInfoList": [
         {
           "actualNames": [ "username" ],
+          "friendlyName": "Customer Name"
+        }
+      ]
+    },
+    {
+      "action": "Internal Login",
+      "urls": [
+        "InternalView.aspx"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "custName" ],
           "friendlyName": "Customer Name"
         }
       ]

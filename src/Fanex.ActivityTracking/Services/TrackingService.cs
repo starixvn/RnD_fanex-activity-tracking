@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Configurations;
     using Models;
 
     public interface TrackingService
@@ -13,30 +14,23 @@
     public class TrackingServiceImpl : TrackingService
     {
         protected readonly bool enabledTrackAllRequests;
+        protected readonly ActivityTrackingConfig activityTrackingConfig;
 
-        public TrackingServiceImpl(bool enabledTrackAllRequests)
+        public TrackingServiceImpl(ActivityTrackingConfig activityTrackingConfig = null)
         {
-            this.enabledTrackAllRequests = enabledTrackAllRequests;
+            this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
+            this.enabledTrackAllRequests = this.activityTrackingConfig.EnabledTrackingAllRequests;
         }
 
         public virtual TrackingItem GetTrackingItem(string url, IEnumerable<TrackingItem> trackingItems, IEnumerable<string> ignoredUrls)
         {
-            if (enabledTrackAllRequests)
-            {
-                return CheckIgnoredUrl(url, ignoredUrls);
-            }
-
             if (string.IsNullOrWhiteSpace(url))
             {
                 throw new ArgumentNullException(nameof(url));
             }
 
-            if (trackingItems == null)
-            {
-                throw new ArgumentNullException(nameof(trackingItems));
-            }
-
-            if (trackingItems.Any())
+            if (trackingItems != null 
+                && trackingItems.Any())
             {
                 var urlToLower = url.ToLowerInvariant();
                 foreach (var trackingItem in trackingItems)
@@ -54,6 +48,11 @@
                         }
                     }
                 }
+            }
+
+            if (enabledTrackAllRequests)
+            {
+                return CheckIgnoredUrl(url, ignoredUrls);
             }
 
             return TrackingItem.NoTrackingItem;

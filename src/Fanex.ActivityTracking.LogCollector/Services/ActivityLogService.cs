@@ -35,7 +35,7 @@
         {
             this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
             this.elasticClient = elasticClient ?? ElasticsearchClient.Instance;
-            this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig.EnabledTrackingAllRequests);
+            this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig);
         }
 
         public IEnumerable<Activity> GetActivities(string system)

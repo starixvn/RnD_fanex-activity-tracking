@@ -30,7 +30,7 @@
             this.bus = bus ?? RabbitMqClient.Bus;
             this.activityLogService = activityLogService ?? new ActivityLogServiceImpl();
             this.logger = logger ?? Logger.Log;
-            this.subscriptionId = AppSettings.SubscriptionId;
+            this.subscriptionId = subscriptionId ?? AppSettings.SubscriptionId;
         }
 
         public void SubcribeActivityLogs()
