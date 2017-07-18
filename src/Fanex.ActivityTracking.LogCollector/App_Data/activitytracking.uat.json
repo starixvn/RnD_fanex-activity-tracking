@@ -1,6 +1,7 @@
 {
-  "rabbitMQConnectionString": "host=10.18.200.103,10.18.200.104;virtualHost=/ActivityTracking;username=activity_tracking;password=1234bb",
+  "rabbitMQConnectionString": "host=10.40.40.73,10.2.23.6;virtualHost=/activity_tracking_uat;username=activity_tracking;password=1q2w3e$R",
   "enabledTrackAllRequests": false,
+  "logCategory": "Activity-Tracking-UAT",
    "trackingItems": [
     {
       "action": "Search Account",
