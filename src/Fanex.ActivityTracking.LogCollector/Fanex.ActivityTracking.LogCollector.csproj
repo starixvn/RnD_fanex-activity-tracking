@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9096938A-8A11-4FD5-81A8-07BFEE0D5940}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Fanex.ActivityTracking.LogCollector</RootNamespace>
     <AssemblyName>Fanex.ActivityTracking.LogCollector</AssemblyName>
@@ -124,6 +124,9 @@
     <None Include="Fanex.ActivityTracking.LogCollector.exe.local.config">
       <DependentUpon>App.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro.config">
+      <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="Fanex.ActivityTracking.LogCollector.exe.uat.config">
       <DependentUpon>App.config</DependentUpon>
