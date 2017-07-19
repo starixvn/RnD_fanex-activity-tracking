@@ -94,28 +94,6 @@
           "friendlyName": "Ref No"
         }
       ]
-    },
-    {
-      "action": "Customer Setting",
-      "urls": [
-        "ThirdPartyProductStatus/Update",
-        "updateCustomerSetting/updateSetting",
-        "LiveCasinoSetting/Setting/UpdateLiveCasinoSetting"
-      ],
-      "paramInfoList": [
-        {
-          "actualNames": [ "custId", "customerId", "Id" ],
-          "friendlyName": "Customer Id"
-        },
-        {
-          "actualNames": [ "ProductId" ],
-          "friendlyName": "Product Id"
-        },
-        {
-          "actualNames": [ "ProductName" ],
-          "friendlyName": "Product Name"
-        }
-      ]
     }
   ]
 }
