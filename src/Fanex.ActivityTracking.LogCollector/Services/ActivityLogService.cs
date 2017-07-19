@@ -94,6 +94,16 @@
                 return string.Empty;
             }
 
+            if(string.IsNullOrWhiteSpace(bodyData))
+            {
+                return queryStringAndFormData;
+            }
+
+            if (string.IsNullOrWhiteSpace(queryStringAndFormData))
+            {
+                return bodyData;
+            }
+
             return $"{queryStringAndFormData}\r\n{bodyData}";
         }
 

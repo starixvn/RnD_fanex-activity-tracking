@@ -31,8 +31,6 @@
                     var serializer = new DataContractJsonSerializer(typeof(ActivityTrackingConfig));
                     ActivityTrackingConfig = (ActivityTrackingConfig)serializer.ReadObject(stream);
                     ToLowerAllUrls();
-
-                    LogService.Info($"Total tracking items: {ActivityTrackingConfig.TrackingItems.Count()}");
                 }
             }
             else

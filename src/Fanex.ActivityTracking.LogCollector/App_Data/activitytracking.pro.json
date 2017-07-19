@@ -2,7 +2,7 @@
   "rabbitMQConnectionString": "host=10.40.40.73,10.2.23.6;virtualHost=/activity_tracking_pro;username=activity_tracking;password=1q2w3e$R",
   "enabledTrackAllRequests": false,
   "logCategory": "Activity-Tracking",
-   "trackingItems": [
+  "trackingItems": [
     {
       "action": "Search Account",
       "urls": [ "CustInfo.aspx" ],
