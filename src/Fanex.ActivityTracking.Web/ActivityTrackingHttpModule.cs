@@ -19,6 +19,7 @@
         private readonly TrackingService trackingService;
         private readonly ILogger logger;
         private HttpRequest httpRequest;
+        private HttpSessionState httpSession;
         private readonly ActivityTrackingConfig activityTrackingConfig;
 
         public ActivityTrackingHttpModule(
@@ -28,9 +29,11 @@
             IActivityLogger activityLogger = null,
             IPService ipService = null,
             ILogger logger = null,
-            ActivityTrackingConfig activityTrackingConfig = null)
+            ActivityTrackingConfig activityTrackingConfig = null,
+            Action initHttpModule = null)
         {
-            InitHttpModule();
+            initHttpModule = initHttpModule ?? InitHttpModule;
+            initHttpModule();
             this.userSession = userSession;
             this.requestAnalyzer = requestAnalyzer;
             this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
@@ -50,18 +53,31 @@
             }
         }
 
-        private bool IgnoreStaticFiles => IgnoreStaticFilesPartern.IsMatch(HttpContext.Current.Request.Path, (int)RegexOptions.IgnoreCase);
+        internal bool IgnoreStaticFiles => IgnoreStaticFilesPartern.IsMatch(HttpRequest.Url.ToString(), (int)RegexOptions.IgnoreCase);
 
-        private bool SessionIsNull => HttpContext.Current.Session == null
+        internal bool SessionIsNull => HttpSession == null
                     || (userSession.AdminId == 0 && userSession.CustId == 0);
 
         public void Init(HttpApplication context) => context.AcquireRequestState += new EventHandler(AcquireRequestState);
+
+        public HttpSessionState HttpSession
+        {
+            get
+            {
+                return httpSession ?? (HttpContext.Current != null ? HttpContext.Current.Session : null);
+            }
+
+            internal set
+            {
+                httpSession = value;
+            }
+        }
 
         public HttpRequest HttpRequest
         {
             get
             {
-                return httpRequest ?? HttpContext.Current.Request;
+                return httpRequest ?? (HttpContext.Current != null ? HttpContext.Current.Request : null);
             }
 
             internal set
@@ -70,7 +86,7 @@
             }
         }
 
-        private void AcquireRequestState(object sender, EventArgs e)
+        public void AcquireRequestState(object sender, EventArgs e)
         {
             if (SessionIsNull || IgnoreStaticFiles)
             {
@@ -87,33 +103,38 @@
                 if (trackingItem != null
                     && trackingItem.Level != TrackingLevel.NoTracking)
                 {
-                    var activity = new Activity
-                    {
-                        Actor = new Actor
-                        {
-                            AdminId = userSession.AdminId,
-                            AdminName = userSession.AdminName,
-                            CustId = userSession.CustId,
-                            CustName = userSession.CustName
-                        },
-                        Action = trackingItem.Action,
-                        SessionID = userSession.SessionID,
-                        TimeAccessed = DateTime.Now,
-                        RequestInfo = requestAnalyzer.Analyze(HttpRequest),
-                        IPAddress = ipService.GetClientIPAddress(HttpRequest),
-                        UrlAccessed = HttpRequest.Url.ToString(),
-                        System = activityTrackingConfig.System,
-                        Environment = activityTrackingConfig.Environment,
-                        Site = activityTrackingConfig.Site
-                    };
-
-                    activityLogger.Write(activity);
+                    LogActivity(trackingItem);
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message, AppSettings.LogCategory, ex);
             }
+        }
+
+        private void LogActivity(TrackingItem trackingItem)
+        {
+            var activity = new Activity
+            {
+                Actor = new Actor
+                {
+                    AdminId = userSession.AdminId,
+                    AdminName = userSession.AdminName,
+                    CustId = userSession.CustId,
+                    CustName = userSession.CustName
+                },
+                Action = trackingItem.Action,
+                SessionID = userSession.SessionID,
+                TimeAccessed = DateTime.Now,
+                RequestInfo = requestAnalyzer.Analyze(HttpRequest),
+                IPAddress = ipService.GetClientIPAddress(HttpRequest),
+                UrlAccessed = HttpRequest.Url.ToString(),
+                System = activityTrackingConfig.System,
+                Environment = activityTrackingConfig.Environment,
+                Site = activityTrackingConfig.Site
+            };
+
+            activityLogger.Write(activity);
         }
 
         public void Dispose()

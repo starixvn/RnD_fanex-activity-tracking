@@ -1,10 +1,12 @@
 ﻿namespace Fanex.ActivityTracking.Web
 {
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.IO;
     using System.Web;
     using Models;
     using Services;
+    using System.Linq;
 
     public interface IRequestAnalyzer
     {
@@ -27,34 +29,38 @@
                 HttpMethod = request.HttpMethod,
                 Form = request.Form.ToString(),
                 QueryString = request.Url.Query,
-                BodyData = GetBodyData(request),
+                BodyData = GetBodyData(request.InputStream),
                 HttpData = jsonConverter.SerializeObject(
-                    new
-                    {
-                        Headers = GetHeaders(request)
-                    })
+                new
+                {
+                    Headers = GetHeaders(request.Headers)
+                })
             };
         }
 
-        private Dictionary<string, string> GetHeaders(HttpRequest request)
+        internal Dictionary<string, string> GetHeaders(NameValueCollection requestHeaders)
         {
             var headers = new Dictionary<string, string>();
 
-            foreach (var headerKey in request.Headers.AllKeys)
+            foreach (var headerKey in requestHeaders.AllKeys)
             {
-                headers.Add(headerKey, request.Headers[headerKey]);
+                headers.Add(headerKey, requestHeaders[headerKey]);
             }
 
             return headers;
         }
 
-        private string GetBodyData(HttpRequest request)
+        internal string GetBodyData(Stream requestStream)
         {
-            Stream req = request.InputStream;
-            req.Seek(0, SeekOrigin.Begin);
-            var streamReader = new StreamReader(req);
+            if(requestStream == null)
+            {
+                return string.Empty;
+            }
+
+            requestStream.Seek(0, SeekOrigin.Begin);
+            var streamReader = new StreamReader(requestStream);
             var bodyData = streamReader.ReadToEnd();
-            req.Seek(0, SeekOrigin.Begin);
+            requestStream.Seek(0, SeekOrigin.Begin);
             if (!string.IsNullOrWhiteSpace(bodyData))
             {
                 return HttpUtility.UrlDecode(bodyData);

@@ -14,20 +14,18 @@
     {
         public string GetClientIPAddress(HttpRequest request)
         {
-            var forwardHeader = GetForwardHeader(request);
+            var forwardHeader = GetForwardHeader(request.ServerVariables["HTTP_X_FORWARDED_FOR"]);
 
             if (!string.IsNullOrEmpty(forwardHeader))
             {
                 return forwardHeader;
             }
 
-            return GetInternalAddress(request);
+            return GetInternalAddress(request.UserHostAddress);
         }
 
-        private static string GetForwardHeader(HttpRequest request)
+        internal static string GetForwardHeader(string forwardHeader)
         {
-            var forwardHeader = request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
             if (forwardHeader != null)
             {
                 return forwardHeader.Split(',').First().Trim();
@@ -36,9 +34,8 @@
             return string.Empty;
         }
 
-        private static string GetInternalAddress(HttpRequest request)
+        internal static string GetInternalAddress(string userHostAddress)
         {
-            string userHostAddress = request.UserHostAddress;
             IPAddress internalIPAddress = GetInternalIPAddress(userHostAddress);
 
             if (internalIPAddress == null)
@@ -51,7 +48,7 @@
             return internalIPAddress != null ? internalIPAddress.ToString() : string.Empty;
         }
 
-        private static IPAddress GetInternalIPAddress(string hostAddress)
+        internal static IPAddress GetInternalIPAddress(string hostAddress)
         {
             foreach (var itemIPA in Dns.GetHostAddresses(hostAddress))
             {

@@ -29,8 +29,7 @@
                 using (Stream stream = File.OpenRead(configFilePath))
                 {
                     var serializer = new DataContractJsonSerializer(typeof(ActivityTrackingConfig));
-                    ActivityTrackingConfig = (ActivityTrackingConfig)serializer.ReadObject(stream);
-                    ToLowerAllUrls();
+                    ActivityTrackingConfig = ToLowerAllUrls((ActivityTrackingConfig)serializer.ReadObject(stream));
                 }
             }
             else
@@ -39,12 +38,12 @@
             }
         }
 
-        private static void ToLowerAllUrls()
+        internal static ActivityTrackingConfig ToLowerAllUrls(ActivityTrackingConfig activityTrackingConfig)
         {
-            if (ActivityTrackingConfig.TrackingItems != null
-               && ActivityTrackingConfig.TrackingItems.Any())
+            if (activityTrackingConfig.TrackingItems != null
+               && activityTrackingConfig.TrackingItems.Any())
             {
-                foreach (var trackingItem in ActivityTrackingConfig.TrackingItems)
+                foreach (var trackingItem in activityTrackingConfig.TrackingItems)
                 {
                     if (trackingItem.Urls != null && trackingItem.Urls.Any())
                     {
@@ -53,11 +52,13 @@
                 }
             }
 
-            if (ActivityTrackingConfig.IgnoredUrls != null
-                && ActivityTrackingConfig.IgnoredUrls.Any())
+            if (activityTrackingConfig.IgnoredUrls != null
+                && activityTrackingConfig.IgnoredUrls.Any())
             {
-                ActivityTrackingConfig.IgnoredUrls = ActivityTrackingConfig.IgnoredUrls.Select(url => url.ToLowerInvariant());
+                activityTrackingConfig.IgnoredUrls = activityTrackingConfig.IgnoredUrls.Select(url => url.ToLowerInvariant());
             }
+
+            return activityTrackingConfig;
         }
     }
 }

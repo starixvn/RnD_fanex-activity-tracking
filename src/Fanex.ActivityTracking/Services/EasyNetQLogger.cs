@@ -9,6 +9,7 @@
     {
         public void DebugWrite(string format, params object[] args)
         {
+            // We dont need to log this information.
         }
 
         public void ErrorWrite(Exception exception) 

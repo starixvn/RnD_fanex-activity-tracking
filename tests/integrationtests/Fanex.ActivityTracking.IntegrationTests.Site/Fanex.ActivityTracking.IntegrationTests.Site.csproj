@@ -114,6 +114,16 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Fanex.ActivityTracking.Web\Fanex.ActivityTracking.Web.csproj">
+      <Project>{5c66f1fc-782b-49b0-b41e-fb41c058eb5e}</Project>
+      <Name>Fanex.ActivityTracking.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Fanex.ActivityTracking\Fanex.ActivityTracking.csproj">
+      <Project>{93425b72-d3bc-46f0-b760-c3c90cc561f6}</Project>
+      <Name>Fanex.ActivityTracking</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
