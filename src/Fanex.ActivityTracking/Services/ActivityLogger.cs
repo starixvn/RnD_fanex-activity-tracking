@@ -18,6 +18,12 @@
             this.bus = bus ?? RabbitMqClient.Bus;
         }
 
-        public void Write(Activity activity) => bus.Publish(activity);
+        public void Write(Activity activity)
+        {
+            if (bus.IsConnected)
+            {
+                bus.Publish(activity);
+            }
+        }
     }
 }

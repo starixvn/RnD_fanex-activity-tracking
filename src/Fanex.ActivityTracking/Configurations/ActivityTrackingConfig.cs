@@ -8,6 +8,8 @@
     [DataContract]
     public class ActivityTrackingConfig
     {
+        private const int MaxRabbitMQConnectFailedCount = 3;
+
         [DataMember(Name = "rabbitMQConnectionString")]
         public string RabbitMQConnectionString { get; set; }
 
@@ -32,11 +34,15 @@
         [DataMember(Name = "ignoredUrls", IsRequired = false)]
         public IEnumerable<string> IgnoredUrls { get; set; }
 
+        [DataMember(Name = "stopRabbitMQConnectionAfterFailedCount", IsRequired = false)]
+        public int StopRabbitMQConnectionAfterFailedCount { get; set; }
+
         [OnDeserializing]
         private void OnDeserializing(StreamingContext context)
         {
             TrackingItems = Enumerable.Empty<TrackingItem>();
             IgnoredUrls = Enumerable.Empty<string>();
+            StopRabbitMQConnectionAfterFailedCount = MaxRabbitMQConnectFailedCount;
         }
     }
 }
