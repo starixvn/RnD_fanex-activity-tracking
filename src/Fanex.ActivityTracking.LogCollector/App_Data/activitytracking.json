@@ -122,6 +122,12 @@
           "friendlyName": "Product Name"
         }
       ]
+    },
+    {
+      "action": "Demo",
+      "urls": [
+        "Demo"
+      ]
     }
   ]
 }
