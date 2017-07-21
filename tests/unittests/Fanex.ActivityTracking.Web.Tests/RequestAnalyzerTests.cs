@@ -1,10 +1,6 @@
 ﻿namespace Fanex.ActivityTracking.Web.Tests
 {
-    using System;
-    using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.Linq;
-    using System.Text;
     using System.Web;
     using NSubstitute;
     using NUnit.Framework;
@@ -26,7 +22,7 @@
         [Test]
         public void GetHeaders_Always_ReturnHeaderInformation()
         {
-            // Arrange 
+            // Arrange
             var headers = new NameValueCollection
             {
                 { "key", "value" }

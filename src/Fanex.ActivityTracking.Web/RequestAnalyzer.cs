@@ -6,7 +6,6 @@
     using System.Web;
     using Models;
     using Services;
-    using System.Linq;
 
     public interface IRequestAnalyzer
     {
@@ -52,7 +51,7 @@
 
         internal string GetBodyData(Stream requestStream)
         {
-            if(requestStream == null)
+            if (requestStream == null)
             {
                 return string.Empty;
             }

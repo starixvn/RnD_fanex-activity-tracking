@@ -24,7 +24,7 @@
         private IPService ipService;
         private TrackingService trackingService;
         private ILogger logger;
-        private Action initComponent = () => { };
+        private readonly Action initComponent = () => { };
         private ActivityTrackingConfig activityTrackingConfig;
 
         [SetUp]
@@ -167,7 +167,7 @@
 
             // Assert
             trackingService.Received().GetTrackingItem(
-                httpRequest.Url.AbsolutePath, 
+                httpRequest.Url.AbsolutePath,
                 activityTrackingConfig.TrackingItems,
                 activityTrackingConfig.IgnoredUrls);
         }
@@ -232,7 +232,6 @@
             // Assert
             logger.Received().Error("Test Exception", "LogCategory", testException);
         }
-
 
         private void FakeHttpContext(string queryString)
         {

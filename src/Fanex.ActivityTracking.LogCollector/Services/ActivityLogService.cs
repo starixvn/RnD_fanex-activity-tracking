@@ -9,7 +9,6 @@
     using ActivityTracking.Services;
     using Elasticsearch.Net;
     using Helpers;
-    using Logging;
     using Nest;
 
     public interface ActivityLogService
@@ -68,7 +67,10 @@
                 activity.Action = trackingItem.Action;
             }
 
-            activity.RequestInfo.Others = ExtractDataFromRequest(activity, trackingItem);
+            if (activity.RequestInfo != null)
+            {
+                activity.RequestInfo.Others = ExtractDataFromRequest(activity, trackingItem);
+            }
 
             var response = elasticClient.Index(
                     activity,
@@ -88,13 +90,7 @@
 
             var bodyData = ExtractDataFromBodyRequest(activity.RequestInfo.BodyData, trackingItem.ParamInfoList);
 
-            if (string.IsNullOrWhiteSpace(queryStringAndFormData)
-                && string.IsNullOrWhiteSpace(bodyData))
-            {
-                return string.Empty;
-            }
-
-            if(string.IsNullOrWhiteSpace(bodyData))
+            if (string.IsNullOrWhiteSpace(bodyData))
             {
                 return queryStringAndFormData;
             }

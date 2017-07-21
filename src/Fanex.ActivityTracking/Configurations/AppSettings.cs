@@ -4,7 +4,6 @@
     using System.IO;
     using System.Linq;
     using System.Runtime.Serialization.Json;
-    using Logging;
 
     public static class AppSettings
     {

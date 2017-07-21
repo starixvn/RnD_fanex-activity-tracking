@@ -29,13 +29,13 @@
                 throw new ArgumentNullException(nameof(url));
             }
 
-            if (trackingItems != null 
+            if (trackingItems != null
                 && trackingItems.Any())
             {
                 var urlToLower = url.ToLowerInvariant();
                 foreach (var trackingItem in trackingItems)
                 {
-                    if (trackingItem.Urls != null 
+                    if (trackingItem.Urls != null
                         && trackingItem.Urls.Any())
                     {
                         foreach (var trackingUrl in trackingItem.Urls)
@@ -60,13 +60,13 @@
 
         private TrackingItem CheckIgnoredUrl(string url, IEnumerable<string> ignoredUrls)
         {
-            if (ignoredUrls != null 
+            if (ignoredUrls != null
                 && ignoredUrls.Any())
             {
                 var urlToLower = url.ToLowerInvariant();
                 foreach (var ignoredUrl in ignoredUrls)
                 {
-                    if(!string.IsNullOrWhiteSpace(ignoredUrl) 
+                    if (!string.IsNullOrWhiteSpace(ignoredUrl)
                         && urlToLower.Contains(ignoredUrl))
                     {
                         return TrackingItem.NoTrackingItem;

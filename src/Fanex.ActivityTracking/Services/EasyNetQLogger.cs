@@ -12,7 +12,7 @@
             // We dont need to log this information.
         }
 
-        public void ErrorWrite(Exception exception) 
+        public void ErrorWrite(Exception exception)
             => LogService.Error(exception.Message, AppSettings.LogCategory, exception);
 
         public void ErrorWrite(string format, params object[] args)

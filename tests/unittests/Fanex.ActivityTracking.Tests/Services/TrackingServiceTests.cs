@@ -111,6 +111,7 @@
                 "/path/ignore/3"
             };
             activityTrackingConfig.EnabledTrackingAllRequests = true;
+            trackingService = new TrackingServiceImpl(activityTrackingConfig);
 
             // Act
             var actionItem = trackingService.GetTrackingItem(url, Enumerable.Empty<TrackingItem>(), ignoredUrls);
@@ -132,12 +133,13 @@
                 "/path/ignore/3"
             };
             activityTrackingConfig.EnabledTrackingAllRequests = true;
+            trackingService = new TrackingServiceImpl(activityTrackingConfig);
 
             // Act
             var actionItem = trackingService.GetTrackingItem(url, Enumerable.Empty<TrackingItem>(), ignoredUrls);
 
             // Assert
-            Assert.AreSame(TrackingItem.NoTrackingItem, actionItem);
+            Assert.AreSame(TrackingItem.BasicTrackingItem, actionItem);
         }
     }
 }

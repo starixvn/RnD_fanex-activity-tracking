@@ -9,6 +9,11 @@
         public static readonly TrackingItem BasicTrackingItem = new TrackingItem { Level = TrackingLevel.Basic };
         public static readonly TrackingItem NoTrackingItem = new TrackingItem { Level = TrackingLevel.NoTracking };
 
+        public TrackingItem()
+        {
+            Level = TrackingLevel.Basic;
+        }
+
         [DataMember(Name = "function", IsRequired = false)]
         public string Function { get; set; }
 
