@@ -65,7 +65,6 @@
                     activity,
                     i => i
                     .Type(elasticsearchIndexType)
-                    .Id(Guid.NewGuid().ToString())
                     .Refresh(Refresh.True));
 
             return response.IsValid ? Models.Result.SuccessResult : Models.Result.CreateErrorResult(response.ToString());

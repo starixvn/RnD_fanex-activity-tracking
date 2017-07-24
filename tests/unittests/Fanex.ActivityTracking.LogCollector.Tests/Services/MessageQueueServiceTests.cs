@@ -80,5 +80,15 @@
             // Assert
             logger.Received().Error("Test Exception", testError);
         }
+
+        [Test]
+        public void StopAllSubscriptions_Always_ExecuteDispose()
+        {
+            // Act
+            messageQueueService.StopAllSubscriptions();
+
+            // Assert
+            bus.Received().Dispose();
+        }
     }
 }
