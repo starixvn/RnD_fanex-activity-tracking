@@ -127,6 +127,7 @@
     </None>
     <None Include="Fanex.ActivityTracking.LogCollector.exe.pro.config">
       <DependentUpon>App.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Fanex.ActivityTracking.LogCollector.exe.uat.config">
       <DependentUpon>App.config</DependentUpon>
