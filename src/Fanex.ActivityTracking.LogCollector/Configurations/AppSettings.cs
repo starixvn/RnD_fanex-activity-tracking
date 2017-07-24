@@ -21,7 +21,7 @@
 
             SubscriptionId = ConfigurationManager.AppSettings["SubscriptionId"] ?? "Fanex.ActivityTracking.LogCollector.Services";
 
-            ElasticsearchIndexType = ConfigurationManager.AppSettings["ElasticsearchIndexType"] ?? "UserActivity";
+            ElasticsearchIndexType = ConfigurationManager.AppSettings["ElasticsearchIndexType"] ?? "user_activity";
         }
 
         public static IEnumerable<Uri> UriList { get; internal set; }

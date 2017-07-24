@@ -35,7 +35,7 @@
             this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
             this.elasticClient = elasticClient ?? ElasticsearchClient.Instance;
             this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig);
-            this.elasticsearchIndexType = elasticsearchIndexType;
+            this.elasticsearchIndexType = elasticsearchIndexType ?? Configurations.AppSettings.ElasticsearchIndexType;
         }
 
         public Models.Result InsertActivity(Activity activity)
