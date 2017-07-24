@@ -1,9 +1,12 @@
 ﻿namespace Fanex.ActivityTracking.Configurations
 {
+    using System;
     using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.Runtime.Serialization.Json;
+    using System.Text;
+    using System.Xml;
 
     public static class AppSettings
     {
@@ -25,8 +28,9 @@
         {
             if (File.Exists(configFilePath))
             {
-                using (Stream stream = File.OpenRead(configFilePath))
+                using (StreamReader sr = new StreamReader(configFilePath))
                 {
+                    MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(sr.ReadToEnd()));
                     var serializer = new DataContractJsonSerializer(typeof(ActivityTrackingConfig));
                     ActivityTrackingConfig = ToLowerAllUrls((ActivityTrackingConfig)serializer.ReadObject(stream));
                 }
