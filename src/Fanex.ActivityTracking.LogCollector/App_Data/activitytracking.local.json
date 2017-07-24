@@ -115,6 +115,12 @@
           "friendlyName": "Product Name"
         }
       ]
+    },
+    {
+      "action": "Testing",
+      "urls": [
+        "Demo"
+      ]
     }
   ]
 }

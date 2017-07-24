@@ -94,6 +94,12 @@
           "friendlyName": "Ref No"
         }
       ]
+    },
+    {
+      "action": "Testing",
+      "urls": [
+        "Demo"
+      ]
     }
   ]
 }
