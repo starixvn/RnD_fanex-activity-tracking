@@ -30,7 +30,6 @@
         {
             try
             {
-                LogService.Info("Activity Tracking Message Collector Service has been stated!");
                 messageQueueService.SubcribeActivityLogs();
             }
             catch (Exception ex)
