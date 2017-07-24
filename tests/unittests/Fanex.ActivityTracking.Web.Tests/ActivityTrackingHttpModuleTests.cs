@@ -144,6 +144,8 @@
             userSession.CustId.Returns(1);
             FakeHttpContext($"/path/query");
 
+            activityLogger.IsConnected().Returns(true);
+
             activityTrackingComponent.HttpRequest = new HttpRequest("test", $"http://path/query.{staticResourceSuffix}", string.Empty);
 
             // Arrange & Act
@@ -154,6 +156,22 @@
         }
 
         [Test]
+        public void AcquireRequestState_ActivityLoggerIsNotConnect_Return()
+        {
+            // Arrange
+            userSession.CustId.Returns(1);
+            FakeHttpContext($"/path/query");
+            activityLogger.IsConnected().Returns(false);
+
+            // Arrange & Act
+            activityTrackingComponent.AcquireRequestState(null, null);
+
+            // Assert
+            trackingService.DidNotReceiveWithAnyArgs().GetTrackingItem(null, null, null);
+        }
+
+
+        [Test]
         public void AcquireRequestState_Always_ExecuteGetTrackingItem()
         {
             // Arrange
@@ -161,6 +179,7 @@
             FakeHttpContext("/path/query");
             var httpRequest = new HttpRequest("test", "http://test.com", string.Empty);
             activityTrackingComponent.HttpRequest = httpRequest;
+            activityLogger.IsConnected().Returns(true);
 
             // Act
             activityTrackingComponent.AcquireRequestState(null, null);
@@ -183,6 +202,8 @@
             userSession.SessionID.Returns("SessionID");
 
             FakeHttpContext("/path/query");
+
+            activityLogger.IsConnected().Returns(true);
 
             activityTrackingComponent.HttpRequest = new HttpRequest("test", "http://test.com", string.Empty);
 
@@ -220,7 +241,9 @@
             userSession.CustId.Returns(1);
             FakeHttpContext("/path/query");
 
-            var testException = new Exception("Test Exception");
+            activityLogger.IsConnected().Returns(true);
+
+            var testException = new InvalidOperationException("Test Exception");
             trackingService.When(trackingService => trackingService.GetTrackingItem(Arg.Any<string>(), Arg.Any<IEnumerable<TrackingItem>>(), Arg.Any<IEnumerable<string>>()))
                 .Do((a) => { throw testException; });
 

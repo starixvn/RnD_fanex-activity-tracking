@@ -1,5 +1,6 @@
 ﻿namespace Fanex.ActivityTracking.LogCollector.Tests.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using ActivityTracking.Configurations;
@@ -249,6 +250,60 @@
 
             // Assert
             Assert.AreEqual(expectedResult, activity.RequestInfo.Others);
+        }
+
+        [Test]
+        public void InsertActivity_Always_ExecuteElasticIndex()
+        {
+            // Arrange
+            var activity = new Activity();
+            SetFakeTrackingItem(new TrackingItem { Level = TrackingLevel.Basic });
+
+            // Act
+            activityLogService.InsertActivity(activity);
+
+            // Assert
+            elasticClient.Received().Index(activity, Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest>>());
+        }
+
+        [Test]
+        public void InsertActivity_FailedInsert_ReturnErrorResult()
+        {
+            // Arrange
+            var activity = new Activity();
+            SetFakeTrackingItem(new TrackingItem { Level = TrackingLevel.Basic });
+            var indexResponse = Substitute.For<IIndexResponse>();
+            elasticClient
+                .Index(Arg.Any<Activity>(), Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest>>())
+                .Returns(indexResponse);
+
+            indexResponse.IsValid.Returns(false);
+
+            // Act
+            var actualResult = activityLogService.InsertActivity(activity);
+
+            // Assert
+            Assert.IsFalse(actualResult.IsSuccessful);
+        }
+
+        [Test]
+        public void InsertActivity_InsertSuccessful_ReturnSuccessResult()
+        {
+            // Arrange
+            var activity = new Activity();
+            SetFakeTrackingItem(new TrackingItem { Level = TrackingLevel.Basic });
+            var indexResponse = Substitute.For<IIndexResponse>();
+            elasticClient
+                .Index(Arg.Any<Activity>(), Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest>>())
+                .Returns(indexResponse);
+
+            indexResponse.IsValid.Returns(true);
+
+            // Act
+            var actualResult = activityLogService.InsertActivity(activity);
+
+            // Assert
+            Assert.AreEqual(Models.Result.SuccessResult, actualResult);
         }
 
         public void SetFakeTrackingItem(TrackingItem trackingItem)

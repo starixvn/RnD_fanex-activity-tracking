@@ -20,7 +20,7 @@
         }
 
         [Test]
-        public void Write_Always_PublishActivity()
+        public void Write_BusConnected_ExecutePublishActivity()
         {
             // Arrange
             var activity = new Activity
@@ -28,12 +28,31 @@
                 Action = "demo",
                 Site = "demo"
             };
+            bus.IsConnected.Returns(true);
 
             // Act
             activityLogger.Write(activity);
 
             // Assert
             bus.Received().Publish(activity);
+        }
+
+        [Test]
+        public void Write_BusDidnotConnect_NotExecutePublishActivity()
+        {
+            // Arrange
+            var activity = new Activity
+            {
+                Action = "demo",
+                Site = "demo"
+            };
+            bus.IsConnected.Returns(false);
+
+            // Act
+            activityLogger.Write(activity);
+
+            // Assert
+            bus.DidNotReceiveWithAnyArgs().Publish(activity);
         }
     }
 }

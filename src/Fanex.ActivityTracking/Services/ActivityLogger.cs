@@ -1,11 +1,14 @@
 ﻿namespace Fanex.ActivityTracking.Services
 {
+    using System;
     using EasyNetQ;
     using Helpers;
     using Models;
 
     public interface IActivityLogger
     {
+        bool IsConnected();
+
         void Write(Activity activity);
     }
 
@@ -18,9 +21,14 @@
             this.bus = bus ?? RabbitMqClient.Bus;
         }
 
+        public bool IsConnected()
+        {
+            return bus.IsConnected;
+        }
+
         public void Write(Activity activity)
         {
-            if (bus.IsConnected)
+            if (IsConnected())
             {
                 bus.Publish(activity);
             }

@@ -64,7 +64,10 @@
         {
             get
             {
-                return httpSession ?? (HttpContext.Current != null ? HttpContext.Current.Session : null);
+                return httpSession ??
+                    (HttpContext.Current != null
+                    ? HttpContext.Current.Session
+                    : null);
             }
 
             internal set
@@ -86,15 +89,20 @@
             }
         }
 
+        public bool IsActivityLoggerNotConnected => !activityLogger.IsConnected();
+
         public void AcquireRequestState(object sender, EventArgs e)
         {
-            if (SessionIsNull || IgnoreStaticFiles)
-            {
-                return;
-            }
-
             try
             {
+                if (SessionIsNull
+                || IsActivityLoggerNotConnected
+                || IgnoreStaticFiles)
+                {
+                    return;
+                }
+
+
                 var trackingItem = trackingService.GetTrackingItem(
                     HttpRequest.Url.AbsolutePath,
                     activityTrackingConfig.TrackingItems,

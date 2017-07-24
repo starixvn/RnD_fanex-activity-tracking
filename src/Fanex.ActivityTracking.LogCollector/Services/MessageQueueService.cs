@@ -35,19 +35,19 @@
 
         public void SubcribeActivityLogs()
         {
-            bus.Subscribe<Activity>(
-            subscriptionId,
-            activity =>
+            bus.Subscribe<Activity>(subscriptionId, InsertActivity);
+        }
+
+        internal void InsertActivity(Activity activity)
+        {
+            try
             {
-                try
-                {
-                    activityLogService.InsertActivity(activity);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex.Message, ex);
-                }
-            });
+                activityLogService.InsertActivity(activity);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+            }
         }
 
         public void StopAllSubscriptions()

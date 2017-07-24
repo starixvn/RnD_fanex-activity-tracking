@@ -47,14 +47,6 @@
       <HintPath>..\..\..\packages\EasyNetQ.0.53.6.418\lib\net45\EasyNetQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.ActivityTracking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.ActivityTracking.1.0.0-beta11\lib\net40\Fanex.ActivityTracking.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.ActivityTracking.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.ActivityTracking.Web.1.0.0-beta13\lib\net40\Fanex.ActivityTracking.Web.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
@@ -160,8 +152,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\..\..\src\Fanex.ActivityTracking.Web\Fanex.ActivityTracking.Web.csproj">
+      <Project>{5c66f1fc-782b-49b0-b41e-fb41c058eb5e}</Project>
+      <Name>Fanex.ActivityTracking.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Fanex.ActivityTracking\Fanex.ActivityTracking.csproj">
+      <Project>{93425b72-d3bc-46f0-b760-c3c90cc561f6}</Project>
+      <Name>Fanex.ActivityTracking</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

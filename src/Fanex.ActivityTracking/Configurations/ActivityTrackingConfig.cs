@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Serialization;
+    using Common;
     using Models;
 
     [DataContract]
@@ -12,6 +13,9 @@
 
         [DataMember(Name = "rabbitMQConnectionString")]
         public string RabbitMQConnectionString { get; set; }
+
+        [DataMember(Name = "isConnectionStringEncrypted")]
+        public bool IsConnectionStringEncrypted { get; set; }
 
         [DataMember(Name = "trackingItems")]
         public IEnumerable<TrackingItem> TrackingItems { get; set; }
@@ -43,6 +47,18 @@
             TrackingItems = Enumerable.Empty<TrackingItem>();
             IgnoredUrls = Enumerable.Empty<string>();
             StopRabbitMQConnectionAfterFailedCount = MaxRabbitMQConnectFailedCount;
+            IsConnectionStringEncrypted = true;
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            if(IsConnectionStringEncrypted 
+                && !string.IsNullOrWhiteSpace(RabbitMQConnectionString))
+            {
+                RabbitMQConnectionString = Cryptography.DeCryptConnectionString(RabbitMQConnectionString);
+                RabbitMQConnectionString = RabbitMQConnectionString.Substring(0, RabbitMQConnectionString.Length - 1);
+            }
         }
     }
 }

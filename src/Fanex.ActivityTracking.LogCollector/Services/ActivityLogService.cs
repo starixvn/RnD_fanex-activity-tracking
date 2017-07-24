@@ -14,8 +14,6 @@
     public interface ActivityLogService
     {
         Models.Result InsertActivity(Activity activity);
-
-        IEnumerable<Activity> GetActivities(string system);
     }
 
     public class ActivityLogServiceImpl : ActivityLogService
@@ -26,27 +24,18 @@
         private const string regexBodyJson = "(\"{0}\":)(?<paramValue>[^,]+)";
         private const string paramValue = "paramValue";
         private readonly ActivityTrackingConfig activityTrackingConfig;
+        private readonly string elasticsearchIndexType;
 
         public ActivityLogServiceImpl(
             IElasticClient elasticClient = null,
             TrackingService trackingService = null,
-            ActivityTrackingConfig activityTrackingConfig = null)
+            ActivityTrackingConfig activityTrackingConfig = null,
+            string elasticsearchIndexType = null)
         {
             this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
             this.elasticClient = elasticClient ?? ElasticsearchClient.Instance;
             this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig);
-        }
-
-        public IEnumerable<Activity> GetActivities(string system)
-        {
-            return elasticClient.Search<Activity>(
-                                s =>
-                                s.Type(system)
-                                .From(0)
-                                .Size(5)
-                                .Query(q => q.MatchAll()))
-                                .Hits
-                                .Select(hit => hit.Source);
+            this.elasticsearchIndexType = elasticsearchIndexType;
         }
 
         public Models.Result InsertActivity(Activity activity)
@@ -75,7 +64,7 @@
             var response = elasticClient.Index(
                     activity,
                     i => i
-                    .Type(activity.System)
+                    .Type(elasticsearchIndexType)
                     .Id(Guid.NewGuid().ToString())
                     .Refresh(Refresh.True));
 
