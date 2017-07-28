@@ -125,6 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\demo.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
