@@ -24,6 +24,7 @@
         private IPService ipService;
         private TrackingService trackingService;
         private ILogger logger;
+        private IJsonConverter jsonConverter;
         private readonly Action initComponent = () => { };
         private ActivityTrackingConfig activityTrackingConfig;
 
@@ -36,6 +37,7 @@
             ipService = Substitute.For<IPService>();
             trackingService = Substitute.For<TrackingService>();
             logger = Substitute.For<ILogger>();
+            jsonConverter = Substitute.For<IJsonConverter>();
             activityTrackingConfig = new ActivityTrackingConfig
             {
                 TrackingItems = new List<TrackingItem>
@@ -72,6 +74,7 @@
             activityTrackingComponent = new ActivityTrackingHttpModule(
                 userSession,
                 requestAnalyzer,
+                jsonConverter,
                 trackingService,
                 activityLogger,
                 ipService,
@@ -225,7 +228,6 @@
                     && activity.Actor.CustId == 1
                     && activity.Actor.CustName == "CustName"
                     && activity.Action == "Test"
-                    && activity.SessionID == "SessionID"
                     && activity.RequestInfo.QueryString == "QueryString"
                     && activity.IPAddress == "IPAddress"
                     && activity.UrlAccessed == activityTrackingComponent.HttpRequest.Url.ToString()

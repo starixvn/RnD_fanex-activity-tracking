@@ -5,7 +5,7 @@
     public class IntegratingSiteActivityTrackingHttpModule : ActivityTrackingHttpModule
     {
         public IntegratingSiteActivityTrackingHttpModule()
-            : base(new UserSession(), new RequestAnalyzer())
+            : base(new UserSession(), new RequestAnalyzer(), new JsonConverter())
         {
         }
     }

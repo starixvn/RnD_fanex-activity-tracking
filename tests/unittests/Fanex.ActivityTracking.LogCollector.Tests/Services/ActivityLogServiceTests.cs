@@ -127,6 +127,25 @@
             Assert.AreSame("Action", activity.Action);
         }
 
+        [Test]
+        public void InsertActivity_ActivityHasNoEnvironment_AssignEnvironmentFromConfig()
+        {
+            // Arrange
+            var activity = new Activity();
+            SetFakeTrackingItem(new TrackingItem
+            {
+                Action = "Action",
+                Level = TrackingLevel.Basic
+            });
+            activityTrackingConfig.Environment = "Environment1";
+
+            // Act
+            activityLogService.InsertActivity(activity);
+
+            // Assert
+            Assert.AreSame("Environment1", activity.Environment);
+        }
+
         [TestCase("?query=1&demo=3", "query", "FriendlyName = 1")]
         [TestCase("?query=1&demo=3", "query,demo", "FriendlyName = 1")]
         [TestCase("?query=1&demo=3&demo3=3", "demo", "FriendlyName = 3")]

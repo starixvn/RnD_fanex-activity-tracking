@@ -146,6 +146,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Demo\Index.cshtml" />
     <Content Include="App_Data\activitytracking.json" />
+    <Content Include="App_Data\activitytracking.tranform1.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

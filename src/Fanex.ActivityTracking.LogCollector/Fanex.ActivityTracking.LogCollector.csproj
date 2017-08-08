@@ -112,7 +112,10 @@
     <None Include="App_Data\activitytracking.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="App_Data\activitytracking.pro.json">
+    <None Include="App_Data\activitytracking.pro-alpha.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="App_Data\activitytracking.pro-nap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App_Data\activitytracking.uat.json">
@@ -125,9 +128,11 @@
       <DependentUpon>App.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro.config">
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-alpha.config">
       <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-nap.config">
+      <DependentUpon>App.config</DependentUpon>
     </None>
     <None Include="Fanex.ActivityTracking.LogCollector.exe.uat.config">
       <DependentUpon>App.config</DependentUpon>

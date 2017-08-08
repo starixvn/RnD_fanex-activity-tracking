@@ -1,7 +1,4 @@
 {
-  "rabbitMQConnectionString": "host=10.18.200.103,10.18.200.104;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=1q2w3e$R",
-  "isConnectionStringEncrypted":  false,
-  "enabledTrackAllRequests": true,
-  "system": "NAP",
-  "environment": "LOCAL"
+  "rabbitMQConnectionString": "host=10.18.200.103,10.18.200.104;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "system": "NAP"
 }

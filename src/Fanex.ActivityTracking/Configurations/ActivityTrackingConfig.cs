@@ -48,6 +48,7 @@
             IgnoredUrls = Enumerable.Empty<string>();
             StopRabbitMQConnectionAfterFailedCount = MaxRabbitMQConnectFailedCount;
             IsConnectionStringEncrypted = true;
+            EnabledTrackingAllRequests = true;
         }
 
         [OnDeserialized]

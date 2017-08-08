@@ -14,5 +14,7 @@
         public string CustName => string.Empty;
 
         public string SessionID => HttpContext.Current.Session.SessionID;
+
+        public string CustomData => "CustomData";
     }
 }

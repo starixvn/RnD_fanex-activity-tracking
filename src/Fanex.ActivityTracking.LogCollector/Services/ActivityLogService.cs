@@ -56,6 +56,11 @@
                 activity.Action = trackingItem.Action;
             }
 
+            if (string.IsNullOrEmpty(activity.Environment))
+            {
+                activity.Environment = activityTrackingConfig.Environment;
+            }
+
             if (activity.RequestInfo != null)
             {
                 activity.RequestInfo.Others = ExtractDataFromRequest(activity, trackingItem);

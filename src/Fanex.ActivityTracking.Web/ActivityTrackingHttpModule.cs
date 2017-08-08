@@ -18,6 +18,7 @@
         private readonly IPService ipService;
         private readonly TrackingService trackingService;
         private readonly ILogger logger;
+        private readonly IJsonConverter jsonConverter;
         private HttpRequest httpRequest;
         private HttpSessionState httpSession;
         private readonly ActivityTrackingConfig activityTrackingConfig;
@@ -25,6 +26,7 @@
         public ActivityTrackingHttpModule(
             IUserSession userSession,
             IRequestAnalyzer requestAnalyzer,
+            IJsonConverter jsonConverter,
             TrackingService trackingService = null,
             IActivityLogger activityLogger = null,
             IPService ipService = null,
@@ -36,6 +38,7 @@
             initHttpModule();
             this.userSession = userSession;
             this.requestAnalyzer = requestAnalyzer;
+            this.jsonConverter = jsonConverter;
             this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
             this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig);
             this.activityLogger = activityLogger ?? new ActivityLogger();
@@ -129,10 +132,10 @@
                     AdminId = userSession.AdminId,
                     AdminName = userSession.AdminName,
                     CustId = userSession.CustId,
-                    CustName = userSession.CustName
+                    CustName = userSession.CustName,
+                    UserSession = jsonConverter.SerializeObject(userSession)
                 },
                 Action = trackingItem.Action,
-                SessionID = userSession.SessionID,
                 TimeAccessed = DateTime.Now,
                 RequestInfo = requestAnalyzer.Analyze(HttpRequest),
                 IPAddress = ipService.GetClientIPAddress(HttpRequest),
