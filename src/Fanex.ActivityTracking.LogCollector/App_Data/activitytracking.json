@@ -1,5 +1,5 @@
 {
-  "rabbitMQConnectionString": "host=10.18.200.103,10.18.200.104;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
   "enabledTrackAllRequests": false,
   "ignoredUrls": [
     "footer.aspx",
@@ -8,10 +8,99 @@
     "Handlers/OnlineUpd.ashx",
     "Index.aspx"
   ],
-  "trackingItems": [
+   "trackingItems": [
+    {
+      "action": "View Bet List",
+      "urls": [
+        "site-betlists/MemberBetList",
+        "site-betlists/RunningBetList",
+        "site-betlists/WinLoss",
+        "site-betlists/CancelledBet",
+        "site-betlists/WinLossByMatch",
+        "ex-main/_BetList/BetList.aspx"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName", "username" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "FromDate", "fdate" ],
+          "friendlyName": "From Date"
+        },
+        {
+          "actualNames": [ "ToDate", "tdate" ],
+          "friendlyName": "To Date"
+        },
+        {
+          "actualNames": [ "ProductIds" ],
+          "friendlyName": "Product Ids"
+        },
+        {
+          "actualNames": [ "BetType" ],
+          "friendlyName": "Bet Type"
+        },
+        {
+          "actualNames": [ "LeagueId" ],
+          "friendlyName": "League Id"
+        },
+        {
+          "actualNames": [ "MatchId" ],
+          "friendlyName": "Match Id"
+        },
+        {
+          "actualNames": [ "LiveIndicator", "islive" ],
+          "friendlyName": "Live Indicator"
+        },
+        {
+          "actualNames": [ "transtype" ],
+          "friendlyName": "Trans Type"
+        }
+      ]
+    },
+
+    {
+      "action": "View Report",
+      "urls": [
+        "site-reports/outstanding/",
+        "site-reports/enteredresult/",
+        "site-reports/winlossdetail/",
+        "site-reports/matchwinlossdetail/",
+        "site-reports/winlossanalysis/",
+        "site-reports/winlossanalysischart/",
+        "site-reports/WinLossByProduct/",
+        "site-reports/commissionbybettype/",
+        "site-reports/racingcommission/",
+        "_Reports/LastBetMonitoring/LastBetMonitoring",
+        "report/consolidate/index",
+        "playforfun/Member",
+        "site-ng2/Schedule"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "FromDate" ],
+          "friendlyName": "From Date"
+        },
+        {
+          "actualNames": [ "ToDate" ],
+          "friendlyName": "To Date"
+        },
+        {
+          "actualNames": [ "IsStackMode" ],
+          "friendlyName": "Is Stack Mode"
+        }
+      ]
+    },
+
     {
       "action": "Search Account",
-      "urls": [ "CustInfo.aspx" ],
+      "urls": [
+        "_AccountInfo/Handlers/QueryUserName.ashx"
+      ],
       "paramInfoList": [
         {
           "actualNames": [ "username" ],
@@ -19,114 +108,98 @@
         }
       ]
     },
-    {
-      "action": "Internal Login",
-      "urls": [
-        "InternalView.aspx"
-      ],
-      "paramInfoList": [
-        {
-          "actualNames": [ "custName" ],
-          "friendlyName": "Customer Name"
-        }
-      ]
-    },
+
     {
       "action": "View Account Statement",
       "urls": [
-        "Statement/CustomerStatement.aspx",
-        "Statement/GetData.ashx",
-        "Services/WCF/ServiceDailyTran.svc/VerifyTransaction",
-        "NapStatement/StatementReport/MemberStatement"
+        "Statement/SMAStatement",
+        "Statement/MemberStatement"
       ],
       "paramInfoList": [
         {
-          "actualNames": [ "username", "custname" ],
+          "actualNames": [ "CustName" ],
           "friendlyName": "Customer Name"
         }
       ]
     },
+
     {
-      "action": "View Bet List By IP",
+      "action": "View Member Information",
       "urls": [
-        "BetList/GetBetListByIP_Username",
-        "BetList/BetListByIP.aspx",
-        "TarusBetList/BetListByIP"
+        "_SubAcc/SubAccList.aspx",
+        "MemberList.aspx",
+        "AgentList.aspx",
+        "MasterList.aspx",
+        "_MemberInfo/CreditBalance/CreditBalanceList.aspx",
+        "_MemberInfo/PositionTakingList/Sportbook/SportbookPositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/Racing/RacingPositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/NumberGame/NumberGamePositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/LiveCasino/LiveCasinoPositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/VirtualSports/VirtualSportsPositionTakingList.aspx",
+        "KenoPositionTakingInformation/GetPositionTaking",
+        "GoldDeluxePositionTaking/Index",
+        "SportsbookPT/Index",
+        "_MemberInfo/PositionTakingList/Casino/CasinoPositionTakingList.aspx",
+        "_MemberInfo/Commission/MemberCommissionSportbook.aspx",
+        "_MemberInfo/Commission/MemberCommissionRacing.aspx",
+        "_MemberInfo/Commission/MemberCommissionLiveCasino.aspx",
+        "_MemberInfo/Commission/MemberCommissionCasino.aspx",
+        "MemberInformation/Commission/GoldDeluxe",
+        "MemberInformation/Commission/CommByProduct",
+        "MemberInformation/WinLimit/Index",
+        "MemberInformation/WinLimit/WinLimits",
+        "MemberInformation/BetChoiceLimit/Index"
       ],
       "paramInfoList": [
         {
-          "actualNames": [ "customerId" ],
-          "friendlyName": "Customer Id"
+          "actualNames": [ "CustName", "username" ],
+          "friendlyName": "Customer Name"
         },
         {
-          "actualNames": [ "transactionId" ],
-          "friendlyName": "Transaction Id"
-        },
-        {
-          "actualNames": [ "ip" ],
-          "friendlyName": "IP"
-        },
-        {
-          "actualNames": [ "refno" ],
-          "friendlyName": "Ref No"
-        }
-      ]
-    },
-    {
-      "action": "View Bet List By Refno",
-      "urls": [
-        "BetList/GetBetListByCustInfo_Refno",
-        "BetList/GetBetListByCustInfo_SystemParLayTab",
-        "BetList/GetBetListByRefNo",
-        "BetList/BetListByRefNo_Main",
-        "TarusBetList/BetListByRefNo_Main",
-        "BetList/GetBetListByProduct"
-      ],
-      "paramInfoList": [
-        {
-          "actualNames": [ "customerId" ],
-          "friendlyName": "Customer Id"
-        },
-        {
-          "actualNames": [ "transactionId" ],
-          "friendlyName": "Transaction Id"
-        },
-        {
-          "actualNames": [ "ip" ],
-          "friendlyName": "IP"
-        },
-        {
-          "actualNames": [ "refno" ],
-          "friendlyName": "Ref No"
-        }
-      ]
-    },
-    {
-      "action": "Customer Setting",
-      "urls": [
-        "ThirdPartyProductStatus/Update",
-        "updateCustomerSetting/updateSetting",
-        "LiveCasinoSetting/Setting/UpdateLiveCasinoSetting"
-      ],
-      "paramInfoList": [
-        {
-          "actualNames": [ "custId", "customerId", "Id" ],
-          "friendlyName": "Customer Id"
-        },
-        {
-          "actualNames": [ "ProductId" ],
+          "actualNames": [ "productid" ],
           "friendlyName": "Product Id"
-        },
-        {
-          "actualNames": [ "ProductName" ],
-          "friendlyName": "Product Name"
         }
       ]
     },
+
     {
-      "action": "Testing",
+      "action": "View Customer Setting",
       "urls": [
-        "Demo"
+        "_AccountInfo/EditCustomerInfo.aspx",
+        "_MemberInfo/EditCommission/EditMemberCommission.aspx",
+        "_MemberInfo/RaceBook/EditSingle.aspx",
+        "CustomerSetting/Casino/Member/EditMember",
+        "GoldDeluxeSetting/GoldDeluxe/EditSetting",
+        "_MemberInfo/VirtualSports/EditSingle.aspx",
+        "DCS/ViewCustomerSetting",
+        "_MemberInfo/BetSetting/EditBetSetting.aspx",
+        "/_MemberInfo/PositionTaking/Agent/EditMember.aspx",
+        "customersetting/KenoSetting/kenosetting/AgentEditMember",
+        "LiveCasinoSetting/Setting/EditSetting",
+        "customersetting/ColossusBetSetting/ColossusBetSetting/EditSetting",
+        "Password/ResetMainAccountPassword",
+
+        "_AccountInfo/Handlers/UpdateSuspendedStatus.ashx",
+        "_AccountInfo/Handlers/UpdateClosedStatus.ashx",
+        "_AccountInfo/Handlers/UpdateOutrightStatus.ashx",
+
+        "/ex-main/productstatus3rd/index",
+        "_MemberInfo/LiveCasino/Handlers/Agent/UpdateEnableStatus.ashx",
+        "_AccountInfo/Handlers/UpdateHRFixedOddsStatus.ashx",
+        "_AccountInfo/Handlers/UpdateDoubleCommStatus.ashx",
+        "_MemberInfo/TransferCondition/EditTransferCondition.aspx",
+        "Password/ResetMainAccountPassword",
+        "Otp/ResetOtp"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName", "custName", "username" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "productid" ],
+          "friendlyName": "Product Id"
+        }
       ]
     }
   ]

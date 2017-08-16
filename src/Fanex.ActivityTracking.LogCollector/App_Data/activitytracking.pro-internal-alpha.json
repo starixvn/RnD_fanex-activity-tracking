@@ -1,0 +1,265 @@
+{
+  "rabbitMQConnectionString": "host=10.40.40.22;virtualHost=/activity_tracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "enabledTrackAllRequests": false,
+  "logCategory": "Activity-Tracking",
+  "environment": "PRO",
+  "system": "Alpha-Internal",
+  "trackingItems": [
+    {
+      "action": "View Bet List",
+      "urls": [
+        "site-betlists/MemberBetList",
+        "site-betlists/RunningBetList",
+        "site-betlists/WinLoss",
+        "site-betlists/CancelledBet",
+        "site-betlists/WinLossByMatch",
+        "site-betlists/LastBets/Index",
+        "site-betlists/DailyStatement",
+        "site-betlists/ParlayWinLossByMatch",
+        "ex-main/_BetList/BetList.aspx"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "FromDate" ],
+          "friendlyName": "From Date"
+        },
+        {
+          "actualNames": [ "ToDate" ],
+          "friendlyName": "To Date"
+        },
+        {
+          "actualNames": [ "ProductIds" ],
+          "friendlyName": "Product Ids"
+        },
+        {
+          "actualNames": [ "BetType" ],
+          "friendlyName": "Bet Type"
+        },
+        {
+          "actualNames": [ "LeagueId" ],
+          "friendlyName": "League Id"
+        },
+        {
+          "actualNames": [ "MatchId" ],
+          "friendlyName": "Match Id"
+        },
+        {
+          "actualNames": [ "LiveIndicator" ],
+          "friendlyName": "Live Indicator"
+        },
+        {
+          "actualNames": [ "fdate" ],
+          "friendlyName": "From Date"
+        },
+        {
+          "actualNames": [ "tdate" ],
+          "friendlyName": "To Date"
+        },
+        {
+          "actualNames": [ "username" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "islive" ],
+          "friendlyName": "Live Indicator"
+        },
+        {
+          "actualNames": [ "transtype" ],
+          "friendlyName": "Trans Type"
+        }
+      ]
+    },
+
+    {
+      "action": "View Report",
+      "urls": [
+        "site-reports/outstanding/",
+        "site-reports/enteredresult/",
+        "site-reports/winlossdetail/",
+        "site-reports/matchwinlossdetail/",
+        "site-reports/winlossanalysis/",
+        "site-reports/winlossanalysischart/",
+        "site-reports/WinLossByProduct/",
+        "site-reports/commissionbybettype/",
+        "site-reports/racingcommission/",
+        "report/consolidate/index",
+        "playforfun/Member",
+        "site-ng2/Schedule"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "FromDate" ],
+          "friendlyName": "From Date"
+        },
+        {
+          "actualNames": [ "ToDate" ],
+          "friendlyName": "To Date"
+        },
+        {
+          "actualNames": [ "CustName" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "IsStackMode" ],
+          "friendlyName": "Is Stack Mode"
+        }
+      ]
+    },
+
+    {
+      "action": "Search Account",
+      "urls": [
+        "_AccountInfo/AccountInfo.aspx"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "username" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "txtUsername" ],
+          "friendlyName": "Customer Name"
+        }
+      ]
+    },
+
+    {
+      "action": "View Account Statement",
+      "urls": [
+        "Statement/SMAStatement",
+        "Statement/MemberStatement"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName" ],
+          "friendlyName": "Customer Name"
+        }
+      ]
+    },
+
+    {
+      "action": "View Member Information",
+      "urls": [
+        "_SubAcc/SubAccList.aspx",
+        "_MemberInfo/CustomerList/Super",
+        "_MemberInfo/CustomerList/Master",
+        "_MemberInfo/CustomerList/Agent",
+        "_MemberInfo/CreditBalance/CreditBalanceList.aspx",
+        "_MemberInfo/PositionTakingList/Sportbook/SportbookPositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/Racing/RacingPositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/NumberGame/NumberGamePositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/LiveCasino/LiveCasinoPositionTakingList.aspx",
+        "_MemberInfo/PositionTakingList/VirtualSports/VirtualSportsPositionTakingList.aspx",
+        "KenoPositionTakingInformation/GetPositionTaking",
+        "GoldDeluxePositionTaking/Index",
+        "SportsbookPT/Index",
+        "_MemberInfo/PositionTakingList/Casino/CasinoPositionTakingList.aspx",
+        "_MemberInfo/Commission/MemberCommissionSportbook.aspx",
+        "_MemberInfo/Commission/MemberCommissionRacing.aspx",
+        "_MemberInfo/Commission/MemberCommissionLiveCasino.aspx",
+        "_MemberInfo/Commission/MemberCommissionCasino.aspx",
+        "MemberInformation/Commission/GoldDeluxe",
+        "MemberInformation/Commission/CommByProduct",
+        "MemberInformation/WinLimit/WinLimits",
+        "MemberInformation/BetChoiceLimit/Index"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName", "username" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "productid" ],
+          "friendlyName": "Product Id"
+        },
+        {
+          "actualNames": [ "bettypeId" ],
+          "friendlyName": "Bet Type Id"
+        },
+        {
+          "actualNames": [ "sportTypeId" ],
+          "friendlyName": "Sport Type Id"
+        }
+      ]
+    },
+
+    {
+      "action": "View Customer Setting",
+      "urls": [
+        "_AccountInfo/EditCustomerInfo.aspx",
+        "_MemberInfo/EditCommission/EditMemberCommission.aspx",
+        "_MemberInfo/RaceBook/EditSingle.aspx",
+        "CustomerSetting/Casino/Member/EditMember",
+        "GoldDeluxeSetting/GoldDeluxe/EditSetting",
+        "_MemberInfo/VirtualSports/EditSingle.aspx",
+        "DCS/ViewCustomerSetting",
+        "_MemberInfo/BetSetting/EditBetSetting.aspx",
+        "/_MemberInfo/PositionTaking/Agent/EditMember.aspx",
+        "customersetting/KenoSetting/kenosetting/AgentEditMember",
+        "LiveCasinoSetting/Setting/EditSetting",
+        "customersetting/ColossusBetSetting/ColossusBetSetting/EditSetting",
+        "Password/ResetMainAccountPassword",
+
+        "_AccountInfo/Handlers/UpdateSuspendedStatus.ashx",
+        "_AccountInfo/Handlers/UpdateClosedStatus.ashx",
+        "_AccountInfo/Handlers/UpdateOutrightStatus.ashx",
+
+        "/ex-main/productstatus3rd/index",
+        "_MemberInfo/LiveCasino/Handlers/Agent/UpdateEnableStatus.ashx",
+        "_AccountInfo/Handlers/UpdateHRFixedOddsStatus.ashx",
+        "_AccountInfo/Handlers/UpdateDoubleCommStatus.ashx",
+        "Password/ResetMainAccountPassword",
+        "Otp/ResetOtp",
+        "site-main/Password/ChangePassword",
+        "site-memberinfo/memberrequests/index",
+
+        "ex-main/_MemberInfo/RaceBook/Super/EditMinPT.aspx",
+        "ex-main/_MemberInfo/PositionTaking/Super/EditMinPTMaster.aspx",
+        "_MemberInfo/TransferCondition/EditTransferCondition.aspx"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName", "custName", "username" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "productid" ],
+          "friendlyName": "Product Id"
+        }
+      ]
+    },
+
+    {
+      "action": "Transfer",
+      "urls": [
+        "_Transfer/Super",
+        "_Transfer/Master",
+        "_Transfer/Agent",
+        "_Transfer/Handler",
+        "Transfer/CashBalance"
+      ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "CustName", "custName", "username" ],
+          "friendlyName": "Customer Name"
+        },
+        {
+          "actualNames": [ "oldamount" ],
+          "friendlyName": "Old Amount"
+        },
+        {
+          "actualNames": [ "amount", "txtamount" ],
+          "friendlyName": "Amount"
+        }
+      ]
+    }
+  ]
+}

@@ -61,12 +61,29 @@
         }
 
         [Test]
+        public void InsertActivity_ActivityHasDifferentSystem_ReturnDoNothingAndSuccessResult()
+        {
+            // Arrange
+            var activity = new Activity
+            {
+                System = "System1"
+            };
+
+            // Act
+            var result = activityLogService.InsertActivity(activity);
+
+            // Assert
+            Assert.AreSame(Models.Result.SuccessResult, result);
+        }
+
+        [Test]
         public void InsertActivity_Always_ExecuteGetTrackingItem()
         {
             // Arrange
             var activity = new Activity
             {
-                UrlAccessed = "UrlAccessed"
+                UrlAccessed = "UrlAccessed",
+                System = "System"
             };
 
             // Act
@@ -80,7 +97,10 @@
         public void InsertActivity_TrackingItemIsNull_ReturnSuccessResult()
         {
             // Arrange
-            var activity = new Activity();
+            var activity = new Activity
+            {
+                System = "System"
+            };
             TrackingItem returnValue = null;
             trackingService
                 .GetTrackingItem(Arg.Any<string>(), Arg.Any<IEnumerable<TrackingItem>>(), Arg.Any<IEnumerable<string>>())
@@ -97,7 +117,10 @@
         public void InsertActivity_TrackingItemLevelIsNoTracking_ReturnSuccessResult()
         {
             // Arrange
-            var activity = new Activity();
+            var activity = new Activity
+            {
+                System = "System"
+            };
             trackingService
                 .GetTrackingItem(Arg.Any<string>(), Arg.Any<IEnumerable<TrackingItem>>(), Arg.Any<IEnumerable<string>>())
                 .Returns(TrackingItem.NoTrackingItem);
@@ -113,7 +136,10 @@
         public void InsertActivity_ActivityHasNoActionName_AssignActionNameFromTrackingItem()
         {
             // Arrange
-            var activity = new Activity();
+            var activity = new Activity
+            {
+                System = "System"
+            };
             SetFakeTrackingItem(new TrackingItem
             {
                 Action = "Action",
@@ -131,7 +157,10 @@
         public void InsertActivity_ActivityHasNoEnvironment_AssignEnvironmentFromConfig()
         {
             // Arrange
-            var activity = new Activity();
+            var activity = new Activity
+            {
+                System = "System"
+            };
             SetFakeTrackingItem(new TrackingItem
             {
                 Action = "Action",
@@ -154,6 +183,7 @@
             // Arrange
             var activity = new Activity
             {
+                System = "System",
                 RequestInfo = new RequestInfo
                 {
                     QueryString = queryString
@@ -184,6 +214,7 @@
             // Arrange
             var activity = new Activity
             {
+                System = "System",
                 RequestInfo = new RequestInfo
                 {
                     Form = bodyData
@@ -218,6 +249,7 @@
             // Arrange
             var activity = new Activity
             {
+                System = "System",
                 RequestInfo = new RequestInfo
                 {
                     BodyData = bodyData
@@ -252,6 +284,7 @@
             // Arrange
             var activity = new Activity
             {
+                System = "System",
                 RequestInfo = new RequestInfo
                 {
                     QueryString = queryString,
@@ -275,7 +308,10 @@
         public void InsertActivity_Always_ExecuteElasticIndex()
         {
             // Arrange
-            var activity = new Activity();
+            var activity = new Activity
+            {
+                System = "System"
+            };
             SetFakeTrackingItem(new TrackingItem { Level = TrackingLevel.Basic });
 
             // Act
@@ -289,7 +325,10 @@
         public void InsertActivity_FailedInsert_ReturnErrorResult()
         {
             // Arrange
-            var activity = new Activity();
+            var activity = new Activity
+            {
+                System = "System"
+            };
             SetFakeTrackingItem(new TrackingItem { Level = TrackingLevel.Basic });
             var indexResponse = Substitute.For<IIndexResponse>();
             elasticClient
@@ -323,6 +362,45 @@
 
             // Assert
             Assert.AreEqual(Models.Result.SuccessResult, actualResult);
+        }
+
+        [TestCase("12b%2524viet", "12b$viet")]
+        [TestCase("12b%24viet", "12b$viet")]
+        [TestCase("12b%252524viet", "12b$viet")]
+        [TestCase("http://ha.nexdev.net:7410/ex-main/dcs/viewcustomersetting?customerLevel=1&amp;UplineLevel=2&amp;customerId=1584729&amp;productId=28", 
+            "http://ha.nexdev.net:7410/ex-main/dcs/viewcustomersetting?customerLevel=1&amp;UplineLevel=2&amp;customerId=1584729&amp;productId=28")]
+        [TestCase("%7b%22AdminId%22%3a0%2c%22AdminName%22%3anull%2c%22CustId%22%3a1176086%2c%22CustName%22%3a%22AGENT01%22%2c",
+            "{\"AdminId\":0,\"AdminName\":null,\"CustId\":1176086,\"CustName\":\"AGENT01\",")]
+        [TestCase("%257b%2522AdminId%2522%253a0%252c%2522AdminName%2522%253anull%252c%2522CustId%2522%253a1176086%252c%2522CustName%2522%253a%2522AGENT01%2522%252c",
+            "{\"AdminId\":0,\"AdminName\":null,\"CustId\":1176086,\"CustName\":\"AGENT01\",")]
+        public void DecodeText_EncodedText_ReturnDecodedString(string encodedText, string expectedDecodedText)
+        {
+            // Act
+            var actualDecodedText = activityLogService.DecodeText(encodedText);
+
+            // Assert
+            Assert.AreEqual(expectedDecodedText, actualDecodedText);
+        }
+
+        [Test]
+        public void DecodeRequestInfo_RequestInfoIsEncoded_ReturnDecodedRequestInfo()
+        {
+            // Arrange
+            var requestInfo = new RequestInfo
+            {
+                BodyData = "12b%2524viet",
+                QueryString = "12b%24viet",
+                Form = "12b%252524viet"
+            };
+
+            // Act
+            var actualRequestInfo = activityLogService.DecodeRequestInfo(requestInfo);
+
+            // Assert
+            Assert.IsTrue(
+                actualRequestInfo.BodyData == "12b$viet"
+                && actualRequestInfo.Form == "12b$viet"
+                && actualRequestInfo.QueryString == "12b$viet");
         }
 
         public void SetFakeTrackingItem(TrackingItem trackingItem)
