@@ -40,6 +40,12 @@
 
         public Models.Result InsertActivity(Activity activity)
         {
+            if (!string.IsNullOrWhiteSpace(activityTrackingConfig.System)
+                && activity.System != activityTrackingConfig.System)
+            {
+                return Models.Result.SuccessResult;
+            }
+
             var trackingItem = trackingService.GetTrackingItem(
                 activity.UrlAccessed,
                 activityTrackingConfig.TrackingItems,
@@ -51,6 +57,21 @@
                 return Models.Result.SuccessResult;
             }
 
+            activity = AppendMoreInfo(activity, trackingItem);
+
+            var response = elasticClient.Index(
+                    activity,
+                    i => i
+                    .Type(elasticsearchIndexType)
+                    .Refresh(Refresh.True));
+
+            return response.IsValid 
+                ? Models.Result.SuccessResult 
+                : Models.Result.CreateErrorResult(response.ToString());
+        }
+
+        private Activity AppendMoreInfo(Activity activity, TrackingItem trackingItem)
+        {
             if (string.IsNullOrEmpty(activity.Action))
             {
                 activity.Action = trackingItem.Action;
@@ -61,18 +82,46 @@
                 activity.Environment = activityTrackingConfig.Environment;
             }
 
+            activity.RequestInfo = DecodeRequestInfo(activity.RequestInfo);
+
             if (activity.RequestInfo != null)
             {
                 activity.RequestInfo.Others = ExtractDataFromRequest(activity, trackingItem);
             }
 
-            var response = elasticClient.Index(
-                    activity,
-                    i => i
-                    .Type(elasticsearchIndexType)
-                    .Refresh(Refresh.True));
+            return activity;
+        }
 
-            return response.IsValid ? Models.Result.SuccessResult : Models.Result.CreateErrorResult(response.ToString());
+
+        internal RequestInfo DecodeRequestInfo(RequestInfo requestInfo)
+        {
+            if(requestInfo == null)
+            {
+                return requestInfo;
+            }
+
+            requestInfo.QueryString = DecodeText(requestInfo.QueryString);
+            requestInfo.Form = DecodeText(requestInfo.Form);
+            requestInfo.BodyData = DecodeText(requestInfo.BodyData);
+
+            return requestInfo;
+        }
+
+        internal string DecodeText(string text)
+        {
+            if(string.IsNullOrWhiteSpace(text))
+            {
+                return text;
+            }
+
+            var decodedText = Uri.UnescapeDataString(text);
+            while(decodedText != text)
+            {
+                text = decodedText;
+                decodedText = Uri.UnescapeDataString(text);
+            }
+
+            return decodedText;
         }
 
         internal string ExtractDataFromRequest(Activity activity, TrackingItem trackingItem)
