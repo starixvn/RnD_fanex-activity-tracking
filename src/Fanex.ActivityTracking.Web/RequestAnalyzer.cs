@@ -56,16 +56,35 @@
                 return string.Empty;
             }
 
-            requestStream.Seek(0, SeekOrigin.Begin);
-            var streamReader = new StreamReader(requestStream);
-            var bodyData = streamReader.ReadToEnd();
-            requestStream.Seek(0, SeekOrigin.Begin);
+            string bodyData = GetStreamData(requestStream);
+
+            if (requestStream.CanSeek)
+            {
+                requestStream.Seek(0, SeekOrigin.Begin);
+            }
+
             if (!string.IsNullOrWhiteSpace(bodyData))
             {
                 return HttpUtility.UrlDecode(bodyData);
             }
 
             return string.Empty;
+        }
+
+        private static string GetStreamData(Stream requestStream)
+        {
+            string bodyData = string.Empty;
+            var tempStream = new MemoryStream();
+
+            requestStream.CopyTo(tempStream);
+
+            tempStream.Seek(0, SeekOrigin.Begin);
+            using (var streamReader = new StreamReader(tempStream))
+            {
+                bodyData = streamReader.ReadToEnd();
+            }
+
+            return bodyData;
         }
     }
 }

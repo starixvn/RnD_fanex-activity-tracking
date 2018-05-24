@@ -57,3 +57,5 @@ src/Alpha.Reports.Site/jsUnitTest.xml
 /.vs/Fanex.ActivityTracking/v15/Server/sqlite3/storage.ide
 /.vs/Fanex.ActivityTracking/v15/Server/sqlite3/storage.ide-shm
 /.vs/Fanex.ActivityTracking/v15/Server/sqlite3/storage.ide-wal
+
+/.axoCover/
