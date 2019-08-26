@@ -9,5 +9,13 @@
         {
             return View();
         }
+
+        public ActionResult TestTracking()
+        {
+            return new ContentResult
+            {
+                Content = "OK"
+            };
+        }
     }
 }

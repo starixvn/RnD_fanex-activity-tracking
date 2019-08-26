@@ -8,7 +8,13 @@
     "Handlers/OnlineUpd.ashx",
     "Index.aspx"
   ],
-   "trackingItems": [
+  "trackingItems": [
+    {
+      "action": "test",
+      "urls": [
+        "demo/TestTracking"
+      ]
+    },
     {
       "action": "View Bet List",
       "urls": [
