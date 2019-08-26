@@ -1,0 +1,17 @@
+﻿{
+  "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "system": "NAP",
+  "environment": "LOCAL",
+  "trackingItems": [
+    {
+      "action": "Search Account",
+      "urls": [ "CustInfo.aspx" ],
+      "paramInfoList": [
+        {
+          "actualNames": [ "username" ],
+          "friendlyName": "Customer Name"
+        }
+      ]
+    }
+  ]
+}

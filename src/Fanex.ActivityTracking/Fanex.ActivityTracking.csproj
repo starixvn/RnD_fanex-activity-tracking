@@ -107,6 +107,7 @@
     <Compile Include="Configurations\ActivityTrackingConfig.cs" />
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\LoggingWrapper.cs" />
     <Compile Include="Helpers\RabbitMqClient.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Actor.cs" />

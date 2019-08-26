@@ -1,0 +1,16 @@
+﻿{
+  "rabbitMQConnectionString": "host=10.99.99.37:5672;virtualHost=/activity_tracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "system": "Alpha",
+  "environment": "PRO",
+  "enabledTrackAllRequests": false,
+  "logCategory": "Alpha-Robot-User",
+  "trackProcessDuration": false,
+  "trackingItems": [
+    {
+      "action": "Captcha",
+      "urls": [
+        "RobotCaptcha"
+      ]
+    }
+  ]
+}

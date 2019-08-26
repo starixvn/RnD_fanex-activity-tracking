@@ -1,6 +1,7 @@
-{
-  "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
-  "enabledTrackAllRequests": false,
+﻿{
+  "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "enabledTrackAllRequests": true,
+  "trackProcessDuration": true,
   "ignoredUrls": [
     "footer.aspx",
     "Services/WCF/ServiceMenu.svc/GetMenuList",
@@ -12,7 +13,8 @@
     {
       "action": "test",
       "urls": [
-        "demo/TestTracking"
+        "demo/TestTracking",
+        "demo/TestTracking2"
       ]
     },
     {
@@ -206,6 +208,13 @@
           "actualNames": [ "productid" ],
           "friendlyName": "Product Id"
         }
+      ]
+    },
+    {
+      "action": "Search Customer",
+
+      "urls": [
+        "CustomerSetting/LeftPanel/SearchCustomer"
       ]
     }
   ]

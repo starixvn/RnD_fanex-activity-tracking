@@ -15,6 +15,8 @@
 
         private static IElasticClient elasticClient;
 
+
+#pragma warning disable S3963 // "static" fields should be initialized inline
         static ElasticsearchClient()
         {
             var credential = AppSettings.ElasticsearchAuthInfo.Split(':');
@@ -22,6 +24,7 @@
             Username = credential.ElementAt(0);
             Password = credential.ElementAt(1);
         }
+#pragma warning restore S3963 // "static" fields should be initialized inline
 
         public static IElasticClient Instance
         {
@@ -33,15 +36,13 @@
                     var connectionSettings = (new ConnectionSettings(connectionPool))
                         .DefaultIndex(AppSettings.ElasticsearchIndex);
 
-                    if (AppSettings.IsSSL)
-                    {
-                        ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, errors) => true;
-                        connectionSettings = connectionSettings
+                    ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, errors) => true;
+
+                    connectionSettings = connectionSettings
                             .SniffOnStartup()
                             .BasicAuthentication(Username, Password)
                             .PingTimeout(new TimeSpan(0, 1, 0))
                             .RequestTimeout(new TimeSpan(0, 1, 0));
-                    }
 
                     elasticClient = new ElasticClient(connectionSettings);
                 }

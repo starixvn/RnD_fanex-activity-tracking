@@ -1,0 +1,20 @@
+﻿{
+  "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking_Ricky;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "system": "Ext",
+  "environment": "LOCAL",
+  "trackingItems": [
+    {
+      "action": "test",
+      "urls": [
+        "demo/TestTracking",
+        "demo/TestTracking2"
+      ]
+    },
+    {
+      "action": "Search Customer",
+      "urls": [
+        "CustomerSetting/LeftPanel/SearchCustomer"
+      ]
+    }
+  ]
+}

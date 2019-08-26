@@ -17,5 +17,13 @@
                 Content = "OK"
             };
         }
+
+        public ActionResult TestTracking2()
+        {
+            return new ContentResult
+            {
+                Content = "TestTracking2"
+            };
+        }
     }
 }

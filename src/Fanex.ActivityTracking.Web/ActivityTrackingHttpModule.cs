@@ -5,13 +5,14 @@
     using System.Web;
     using System.Web.SessionState;
     using Configurations;
+    using Fanex.ActivityTracking.Helpers;
     using Logging;
     using Models;
     using Services;
 
     public class ActivityTrackingHttpModule : IHttpModule, IRequiresSessionState
     {
-        private static readonly Regex IgnoreStaticFilesPartern = new Regex("([^\\s]+(\\.(?i)(jpg|png|gif|bmp|css|js))$)");
+        private static readonly Regex IgnoreStaticFilesPartern = new Regex("([^\\s]+(\\.(?i)(jpg|png|gif|bmp|css|js|map))$)");
         private readonly IActivityLogger activityLogger;
         private readonly IUserSession userSession;
         private readonly IRequestAnalyzer requestAnalyzer;
@@ -34,16 +35,22 @@
             ActivityTrackingConfig activityTrackingConfig = null,
             Action initHttpModule = null)
         {
-            initHttpModule = initHttpModule ?? InitHttpModule;
-            initHttpModule();
-            this.userSession = userSession;
-            this.requestAnalyzer = requestAnalyzer;
-            this.jsonConverter = jsonConverter;
-            this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
-            this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig);
-            this.activityLogger = activityLogger ?? new ActivityLogger();
-            this.ipService = ipService ?? new IPServiceImpl();
-            this.logger = logger ?? Logger.Log;
+            try
+            {
+                initHttpModule = initHttpModule ?? InitHttpModule;
+                initHttpModule();
+                this.userSession = userSession;
+                this.requestAnalyzer = requestAnalyzer;
+                this.jsonConverter = jsonConverter;
+                this.activityTrackingConfig = activityTrackingConfig ?? AppSettings.ActivityTrackingConfig;
+                this.trackingService = trackingService ?? new TrackingServiceImpl(this.activityTrackingConfig);
+                this.activityLogger = activityLogger ?? new ActivityLogger();
+                this.ipService = ipService ?? new IPServiceImpl();
+                this.logger = logger ?? Logger.Log;
+            }
+            catch
+            {
+            }
         }
 
         public static void InitHttpModule()
@@ -61,7 +68,16 @@
         internal bool SessionIsNull => HttpSession == null
                     || (userSession.AdminId == 0 && userSession.CustId == 0);
 
-        public void Init(HttpApplication context) => context.AcquireRequestState += new EventHandler(AcquireRequestState);
+        public void Init(HttpApplication context)
+        {
+            context.AcquireRequestState += new EventHandler(AcquireRequestState);
+
+            if (AppSettings.ActivityTrackingConfig.TrackProcessDuration)
+            {
+                context.PostRequestHandlerExecute += new EventHandler(PostRequestHandlerExecute);
+                context.Error += new EventHandler(Error);
+            }
+        }
 
         public HttpSessionState HttpSession
         {
@@ -95,16 +111,24 @@
         public bool IsActivityLoggerNotConnected => !activityLogger.IsConnected();
 
         public void AcquireRequestState(object sender, EventArgs e)
+            => LogActivity(sender, e, SessionIsNull);
+
+        public void PostRequestHandlerExecute(object sender, EventArgs e)
+            => LogActivity(sender, e, false);
+
+        public void Error(object sender, EventArgs e)
+            => LogActivity(sender, e, false);
+
+        public void LogActivity(object sender, EventArgs e, bool sessionIsNull)
         {
             try
             {
-                if (SessionIsNull
-                || IsActivityLoggerNotConnected
-                || IgnoreStaticFiles)
+                if (sessionIsNull ||
+                    IsActivityLoggerNotConnected ||
+                    IgnoreStaticFiles)
                 {
                     return;
                 }
-
 
                 var trackingItem = trackingService.GetTrackingItem(
                     HttpRequest.Url.AbsolutePath,
@@ -119,12 +143,13 @@
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message, AppSettings.LogCategory, ex);
+                LoggingWrapper.Error(logger, ex);
             }
         }
 
         private void LogActivity(TrackingItem trackingItem)
         {
+            var key = userSession.AdminId + "_" + userSession.CustId + "_" + HttpRequest.Url.ToString();
             var activity = new Activity
             {
                 Actor = new Actor
@@ -137,6 +162,7 @@
                 },
                 Action = trackingItem.Action,
                 TimeAccessed = DateTime.Now,
+                LastTimeAccessed = AppSettings.ActivityTrackingConfig.TrackProcessDuration ? (DateTime?)HttpContext.Current.Session[key] : null,
                 RequestInfo = requestAnalyzer.Analyze(HttpRequest),
                 IPAddress = ipService.GetClientIPAddress(HttpRequest),
                 UrlAccessed = HttpRequest.Url.ToString(),
@@ -145,6 +171,7 @@
                 Site = activityTrackingConfig.Site
             };
 
+            HttpContext.Current.Session[key] = DateTime.Now;
             activityLogger.Write(activity);
         }
 
