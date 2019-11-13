@@ -39,6 +39,7 @@ _CodeCoverageReport
 .vs/config/applicationhost.config
 /OpenCover/*
 
+*.sh
 *.min.js
 bundles
 *.css
