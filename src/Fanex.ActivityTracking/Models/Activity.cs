@@ -19,6 +19,10 @@
 
         public DateTime TimeAccessed { get; set; }
 
+        public DateTime? LastTimeAccessed { get; set; }
+
+        public string Duration => LastTimeAccessed == null ? "0ms" : $"{(TimeAccessed - LastTimeAccessed).Value.Milliseconds}ms";
+
         // A new Data property that is going to store JSON
         // string objects that will later be able to be
         // deserialized into objects if necessary to view

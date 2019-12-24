@@ -65,8 +65,8 @@
                     .Type(elasticsearchIndexType)
                     .Refresh(Refresh.True));
 
-            return response.IsValid 
-                ? Models.Result.SuccessResult 
+            return response.IsValid
+                ? Models.Result.SuccessResult
                 : Models.Result.CreateErrorResult(response.ToString());
         }
 
@@ -92,10 +92,9 @@
             return activity;
         }
 
-
         internal RequestInfo DecodeRequestInfo(RequestInfo requestInfo)
         {
-            if(requestInfo == null)
+            if (requestInfo == null)
             {
                 return requestInfo;
             }
@@ -109,13 +108,13 @@
 
         internal string DecodeText(string text)
         {
-            if(string.IsNullOrWhiteSpace(text))
+            if (string.IsNullOrWhiteSpace(text))
             {
                 return text;
             }
 
             var decodedText = Uri.UnescapeDataString(text);
-            while(decodedText != text)
+            while (decodedText != text)
             {
                 text = decodedText;
                 decodedText = Uri.UnescapeDataString(text);

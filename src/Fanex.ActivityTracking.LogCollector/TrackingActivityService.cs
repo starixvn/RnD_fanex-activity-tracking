@@ -5,8 +5,8 @@
     using System.Reflection;
     using System.ServiceProcess;
     using ActivityTracking.Configurations;
+    using Fanex.ActivityTracking.Helpers;
     using Fanex.ActivityTracking.LogCollector.Services;
-    using Logging;
 
     partial class TrackingActivityService : ServiceBase
     {
@@ -22,7 +22,7 @@
             }
             catch (Exception ex)
             {
-                LogService.Error(ex.Message, ex);
+                LoggingWrapper.Error(ex);
             }
         }
 
@@ -34,7 +34,7 @@
             }
             catch (Exception ex)
             {
-                LogService.Error(ex.Message, ex);
+                LoggingWrapper.Error(ex);
             }
         }
 

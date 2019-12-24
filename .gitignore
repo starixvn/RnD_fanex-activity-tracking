@@ -62,3 +62,5 @@ src/Alpha.Reports.Site/jsUnitTest.xml
 /.axoCover/
 /.vs/Fanex.ActivityTracking/v16/TestStore/0/000-0000.testlog
 /.vs/Fanex.ActivityTracking/v16/TestStore/0/testlog.manifest
+
+/.vs

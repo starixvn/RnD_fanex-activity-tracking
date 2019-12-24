@@ -1,4 +1,4 @@
-{
+﻿{
   "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
   "enabledTrackAllRequests": false,
   "environment": "LOCAL",

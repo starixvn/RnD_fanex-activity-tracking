@@ -2,7 +2,6 @@
 {
     using Configurations;
     using EasyNetQ;
-    using Logging;
     using Services;
 
     public static class RabbitMqClient
@@ -36,7 +35,7 @@
 
         public static void CloseBus()
         {
-            if(bus != null)
+            if (bus != null)
             {
                 bus.Dispose();
             }
@@ -46,7 +45,7 @@
         {
             if (NotConnectedFailedCount > AppSettings.ActivityTrackingConfig.StopRabbitMQConnectionAfterFailedCount)
             {
-                LogService.Error($"Force close RabbitMQ because of connecting failed in {AppSettings.ActivityTrackingConfig.StopRabbitMQConnectionAfterFailedCount} times", AppSettings.LogCategory);
+                LoggingWrapper.Error($"Force close RabbitMQ because of connecting failed in {AppSettings.ActivityTrackingConfig.StopRabbitMQConnectionAfterFailedCount} times", AppSettings.LogCategory);
                 CloseBus();
             }
 

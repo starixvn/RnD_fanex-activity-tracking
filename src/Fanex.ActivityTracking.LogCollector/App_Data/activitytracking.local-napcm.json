@@ -1,0 +1,22 @@
+﻿{
+  "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "system": "NAP-CM",
+  "environment": "LOCAL",
+  "enabledTrackAllRequests": true,
+  "trackProcessDuration": true,
+  "trackingItems": [
+    {
+      "action": "test",
+      "urls": [
+        "demo/TestTracking",
+        "demo/TestTracking2"
+      ]
+    },
+    {
+      "action": "Manage Robots 2",
+      "urls": [
+        "ManageRobots2/Index"
+      ]
+    }
+  ]
+}

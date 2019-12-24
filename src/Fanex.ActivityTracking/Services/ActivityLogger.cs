@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ActivityTracking.Services
 {
-    using System;
     using EasyNetQ;
     using Helpers;
     using Models;

@@ -15,18 +15,18 @@
         }
 
         public void ErrorWrite(Exception exception)
-            => LogService.Error(exception.Message, AppSettings.LogCategory, exception);
+            => LoggingWrapper.Error(exception.Message, AppSettings.LogCategory, exception);
 
         public void ErrorWrite(string format, params object[] args)
         {
-            var formtedMessage = string.Format(format, args);
+            var formatedMessage = string.Format(format, args);
 
-            if(formtedMessage.Contains(ConnectFailedMessage))
+            if (formatedMessage.Contains(ConnectFailedMessage))
             {
                 RabbitMqClient.HandleFailedConnect();
             }
 
-            LogService.Error(formtedMessage, AppSettings.LogCategory);
+            LoggingWrapper.Error(formatedMessage, AppSettings.LogCategory);
         }
 
         public void InfoWrite(string format, params object[] args)

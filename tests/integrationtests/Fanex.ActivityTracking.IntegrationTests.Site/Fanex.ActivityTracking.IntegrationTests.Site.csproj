@@ -48,11 +48,11 @@
       <HintPath>..\..\..\packages\EasyNetQ.0.53.6.418\lib\net45\EasyNetQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.ActivityTracking, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.ActivityTracking.1.0.0.2\lib\net40\Fanex.ActivityTracking.dll</HintPath>
+    <Reference Include="Fanex.ActivityTracking, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.ActivityTracking.1.0.0.3\lib\net40\Fanex.ActivityTracking.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.ActivityTracking.Web, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.ActivityTracking.Web.1.0.0.2\lib\net40\Fanex.ActivityTracking.Web.dll</HintPath>
+    <Reference Include="Fanex.ActivityTracking.Web, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.ActivityTracking.Web.1.0.0.3\lib\net40\Fanex.ActivityTracking.Web.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
@@ -157,14 +157,17 @@
     <Content Include="Views\Demo\Index.cshtml" />
     <Content Include="App_Data\activitytracking.json" />
     <Content Include="App_Data\activitytracking.tranform1.json" />
+    <Content Include="App_Data\activitytracking.local-ext.json" />
+    <Content Include="App_Data\activitytracking.local-nap.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="Web.local-ext.config" />
+    <None Include="Web.local-nap.config" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

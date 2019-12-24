@@ -29,6 +29,9 @@
         [DataMember(Name = "environment")]
         public string Environment { get; set; }
 
+        [DataMember(Name = "trackProcessDuration")]
+        public bool TrackProcessDuration { get; set; }
+
         [DataMember(Name = "site", IsRequired = false)]
         public string Site { get; set; }
 
@@ -54,7 +57,7 @@
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            if(IsConnectionStringEncrypted 
+            if (IsConnectionStringEncrypted
                 && !string.IsNullOrWhiteSpace(RabbitMQConnectionString))
             {
                 RabbitMQConnectionString = Cryptography.DeCryptConnectionString(RabbitMQConnectionString);

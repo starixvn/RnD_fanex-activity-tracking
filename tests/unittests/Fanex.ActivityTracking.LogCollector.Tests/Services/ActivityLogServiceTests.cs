@@ -318,7 +318,7 @@
             activityLogService.InsertActivity(activity);
 
             // Assert
-            elasticClient.Received().Index(activity, Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest>>());
+            elasticClient.Received().Index(activity, Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest<Activity>>>());
         }
 
         [Test]
@@ -332,7 +332,7 @@
             SetFakeTrackingItem(new TrackingItem { Level = TrackingLevel.Basic });
             var indexResponse = Substitute.For<IIndexResponse>();
             elasticClient
-                .Index(Arg.Any<Activity>(), Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest>>())
+                .Index(Arg.Any<Activity>(), Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest<Activity>>>())
                 .Returns(indexResponse);
 
             indexResponse.IsValid.Returns(false);
@@ -352,7 +352,7 @@
             SetFakeTrackingItem(new TrackingItem { Level = TrackingLevel.Basic });
             var indexResponse = Substitute.For<IIndexResponse>();
             elasticClient
-                .Index(Arg.Any<Activity>(), Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest>>())
+                .Index(Arg.Any<Activity>(), Arg.Any<Func<IndexDescriptor<Activity>, IIndexRequest<Activity>>>())
                 .Returns(indexResponse);
 
             indexResponse.IsValid.Returns(true);

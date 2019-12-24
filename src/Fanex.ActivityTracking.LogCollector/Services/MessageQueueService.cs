@@ -46,7 +46,7 @@
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message, ex);
+                LoggingWrapper.Error(logger, ex);
             }
         }
 
