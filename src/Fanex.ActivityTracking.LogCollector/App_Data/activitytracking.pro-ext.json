@@ -1,0 +1,124 @@
+﻿{
+  "rabbitMQConnectionString": "host=10.99.99.37:5672;virtualHost=/activity_tracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "system": "ExternalNAP",
+  "environment": "PRO",
+  "logCategory": "Activity-Tracking-Ext",
+  "enabledTrackAllRequests": false,
+  "trackProcessDuration": true,
+  "ignoredUrls": [
+    "/NetworkSpeed",
+    "/Shared/ReCheckIn"
+  ],
+  "trackingItems": [
+    {
+      "action": "Common Functions",
+      "urls": [
+        "/Filter/"
+      ]
+    },
+    {
+      "action": "Customer List",
+      "urls": [
+        "/CustomerList/Index",
+        "/CustomerList/Seach",
+        "/CustomerList/GetCustomerStatus",
+        "/CustomerList/GetExportToExcel"
+      ]
+    },
+    {
+      "action": "Customer Setting",
+      "urls": [
+        "/Customer/",
+        "/SportsbookSetting/",
+        "/CustomerSetting/LeftPanel/SearchCustomer/GetSecurityCode",
+        "/CustomerSetting/LeftPanel/UpdateCustomer/UpdateSecurityCode",
+        "/MainSuper/"
+      ]
+    },
+    {
+      "action": "Customer Setting - DCS",
+      "urls": [
+        "/DCS/"
+      ]
+    },
+    {
+      "action": "Login",
+      "urls": [
+        "/Account/",
+        "/OTP",
+        "/Account/ExternalGroup",
+        "/Home/Index"
+      ]
+    },
+    {
+      "action": "Left Panel",
+      "urls": [
+        "/CustomerSetting/LeftPanel/",
+        "/Statement/Index",
+        "/NapStatement/StatementReport/",
+        "/ThirdPartyProductStatus/",
+        "/ProductStatusSetting/"
+      ]
+    },
+    {
+      "action": "Administrator - Manage Group",
+      "urls": [
+        "/Group/"
+      ]
+    },
+    {
+      "action": "Internal Login",
+      "urls": [
+        "/User/InternalLogin/"
+      ]
+    },
+    {
+      "action": "Reset Admin password",
+      "urls": [
+        "/User/ResetPasswordOwner/"
+      ]
+    },
+    {
+      "action": "Administrator - Manage User",
+      "urls": [
+        "/User/"
+      ]
+    },
+    {
+      "action": "Administrator - Manage Function",
+      "urls": [
+        "/Function/"
+      ]
+    },
+    {
+      "action": "Administrator - Manage Menu",
+      "urls": [
+        "/Menu/"
+      ]
+    },
+    {
+      "action": "Administrator - Manage Product",
+      "urls": [
+        "/GroupConfiguration/"
+      ]
+    },
+    {
+      "action": "Administrator - Grant Permission",
+      "urls": [
+        "/Permission/"
+      ]
+    },
+    {
+      "action": "Report - Daily Win Loss",
+      "urls": [
+        "/DailyWinloss/"
+      ]
+    },
+    {
+      "action": "Report - Win Loss Detail",
+      "urls": [
+        "/WinlossDetail/"
+      ]
+    }
+  ]
+}

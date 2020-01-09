@@ -115,6 +115,9 @@
     <None Include="App_Data\activitytracking.pro-alpha-robot.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="App_Data\activitytracking.pro-ext.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App_Data\activitytracking.uat-alpha-robot.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -148,46 +151,20 @@
     <None Include="App_Data\activitytracking.local-nap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha-robot.config">
-      <DependentUpon>App.config</DependentUpon>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha-robot.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-ext.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-nap.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-alpha-robot.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-internal-alpha.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-nap.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha-robot.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-ext.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-ext.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-nap.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-alpha-robot.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-internal-alpha.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-nap.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha-robot.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-nap.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-ext.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-nap.config" />
     <None Include="InstallService.bat" />
     <None Include="packages.config" />
     <None Include="UnInstallService.bat" />
