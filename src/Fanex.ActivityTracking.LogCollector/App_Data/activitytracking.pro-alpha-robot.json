@@ -1,5 +1,5 @@
 ﻿{
-  "rabbitMQConnectionString": "host=10.99.99.37:5672;virtualHost=/activity_tracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
+  "rabbitMQConnectionString": "host=10.99.99.51:5672;virtualHost=/activity_tracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
   "system": "Alpha",
   "environment": "PRO",
   "enabledTrackAllRequests": false,
