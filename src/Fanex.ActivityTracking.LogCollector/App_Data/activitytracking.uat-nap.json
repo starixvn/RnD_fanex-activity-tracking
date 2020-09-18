@@ -3,6 +3,7 @@
   "enabledTrackAllRequests": false,
   "environment": "UAT",
   "logCategory": "Activity-Tracking-UAT",
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "trackingItems": [
     {
       "action": "Search Account",

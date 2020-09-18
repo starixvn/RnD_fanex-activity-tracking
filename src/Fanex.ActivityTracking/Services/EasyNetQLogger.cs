@@ -9,6 +9,7 @@
     public class EasyNetQLogger : IEasyNetQLogger
     {
         private const string ConnectFailedMessage = "Failed to connect to any Broke";
+
         public void DebugWrite(string format, params object[] args)
         {
             // We dont need to log this information.

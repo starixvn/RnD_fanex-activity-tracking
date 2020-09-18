@@ -4,6 +4,7 @@
   "environment": "LOCAL",
   "enabledTrackAllRequests": true,
   "trackProcessDuration": true,
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "trackingItems": [
     {
       "action": "test",

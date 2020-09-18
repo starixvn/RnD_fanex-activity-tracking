@@ -2,6 +2,7 @@
   "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
   "enabledTrackAllRequests": true,
   "trackProcessDuration": true,
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "ignoredUrls": [
     "footer.aspx",
     "Services/WCF/ServiceMenu.svc/GetMenuList",

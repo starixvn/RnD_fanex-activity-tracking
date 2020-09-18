@@ -1,9 +1,10 @@
 ﻿{
   "rabbitMQConnectionString": "host=ha.nexdev.net;virtualHost=/ActivityTracking;username=activity_tracking;password=oF3tWUKgUmET01W4wdWWAA==;",
-  "system": "Ext",
+  "system": "NAP-External",
   "environment": "LOCAL",
-  "enabledTrackAllRequests": true,
-  "logCategory": "Activity-Tracking",
+  "enabledTrackAllRequests": false,
+  "stopRabbitMQConnectionAfterFailedCount": 12,
+  "logCategory": "Activity-Tracking-Service-Ext-Local",
 
   "trackProcessDuration": true,
   "ignoredUrls": [
@@ -20,13 +21,10 @@
     {
       "action": "Customer List",
       "urls": [
-        "/Customer/CustomerList",
-        "/Customer/SearchListPost",
-        "/Customer/SuperListPost",
-        "/Customer/MasterListPost",
-        "/Customer/AgentListPost",
-        "/Customer/MemberListPost",
-        "/Customer/GetExportToExcel"
+        "/CustomerList/Index",
+        "/CustomerList/Seach",
+        "/CustomerList/GetCustomerStatus",
+        "/CustomerList/GetExportToExcel"
       ]
     },
     {
