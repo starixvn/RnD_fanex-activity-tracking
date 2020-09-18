@@ -3,6 +3,7 @@
   "enabledTrackAllRequests": false,
   "logCategory": "Activity-Tracking",
   "environment": "PRO",
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "trackingItems": [
     {
       "action": "Search Account",

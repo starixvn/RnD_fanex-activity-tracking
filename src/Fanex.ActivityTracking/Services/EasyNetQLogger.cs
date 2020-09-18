@@ -8,6 +8,8 @@
 
     public class EasyNetQLogger : IEasyNetQLogger
     {
+        private const string ConnectFailedMessage = "Failed to connect to any Broke";
+
         public void DebugWrite(string format, params object[] args)
         {
             // We dont need to log this information.
@@ -18,7 +20,14 @@
 
         public void ErrorWrite(string format, params object[] args)
         {
-            LoggingWrapper.Error(string.Format(format, args), AppSettings.LogCategory);
+            var formatedMessage = string.Format(format, args);
+
+            if (formatedMessage.Contains(ConnectFailedMessage))
+            {
+                RabbitMqClient.HandleFailedConnect();
+            }
+
+            LoggingWrapper.Error(formatedMessage, AppSettings.LogCategory);
         }
 
         public void InfoWrite(string format, params object[] args)

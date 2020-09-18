@@ -3,6 +3,7 @@
   "system": "Alpha",
   "environment": "LOCAL",
   "enabledTrackAllRequests": false,
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "logCategory": "Alpha-Robot-User",
   "trackProcessDuration": false,
   "trackingItems": [

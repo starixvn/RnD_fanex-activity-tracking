@@ -4,6 +4,7 @@
   "logCategory": "Activity-Tracking",
   "environment": "PRO",
   "system": "Alpha-Internal",
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "trackingItems": [
     {
       "action": "View Bet List",

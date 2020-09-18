@@ -5,6 +5,7 @@
   "enabledTrackAllRequests": false,
   "logCategory": "Alpha-Robot-User-UAT",
   "trackProcessDuration": false,
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "trackingItems": [
     {
       "action": "Captcha",

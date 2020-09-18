@@ -5,6 +5,7 @@
   "logCategory": "Activity-Tracking-Ext-UAT",
   "enabledTrackAllRequests": false,
   "trackProcessDuration": true,
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "ignoredUrls": [
     "/NetworkSpeed",
     "/Shared/ReCheckIn"

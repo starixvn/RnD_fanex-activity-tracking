@@ -3,6 +3,7 @@
   "system": "NAP-External",
   "environment": "LOCAL",
   "enabledTrackAllRequests": false,
+  "stopRabbitMQConnectionAfterFailedCount": 12,
   "logCategory": "Activity-Tracking-Service-Ext-Local",
 
   "trackProcessDuration": true,

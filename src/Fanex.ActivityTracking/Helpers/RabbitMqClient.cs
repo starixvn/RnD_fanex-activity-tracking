@@ -32,5 +32,15 @@
                 bus = value;
             }
         }
+        public static void HandleFailedConnect()
+        {
+            if (NotConnectedFailedCount > AppSettings.ActivityTrackingConfig.StopRabbitMQConnectionAfterFailedCount)
+            {
+                LoggingWrapper.Error($"Force close RabbitMQ because of connecting failed in {AppSettings.ActivityTrackingConfig.StopRabbitMQConnectionAfterFailedCount} times", AppSettings.LogCategory);
+                NotConnectedFailedCount = 0;
+            }
+
+            NotConnectedFailedCount++;
+        }
     }
 }
