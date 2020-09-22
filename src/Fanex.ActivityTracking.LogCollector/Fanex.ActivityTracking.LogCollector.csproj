@@ -151,20 +151,42 @@
     <None Include="App_Data\activitytracking.local-nap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha-robot.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-ext.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-nap.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-alpha-robot.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-internal-alpha.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-nap.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha-robot.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha-robot.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-alpha.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-ext.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.local-nap.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-alpha-robot.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-internal-alpha.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-nap.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha-robot.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Fanex.ActivityTracking.LogCollector.exe.pro-ext.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-ext.config" />
-    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-nap.config" />
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-alpha.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-ext.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Fanex.ActivityTracking.LogCollector.exe.uat-nap.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="InstallService.bat" />
     <None Include="packages.config" />
     <None Include="UnInstallService.bat" />
