@@ -3,7 +3,7 @@
   "system": "ExternalNAP",
   "environment": "PRO",
   "logCategory": "Activity-Tracking-Ext",
-  "enabledTrackAllRequests": false,
+  "enabledTrackAllRequests": true,
   "trackProcessDuration": true,
   "ignoredUrls": [
     "/NetworkSpeed",
